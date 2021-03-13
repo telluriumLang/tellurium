@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="com.telluriumlang.tellurium.web-0.0.1">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src-gen"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/xtend-gen"/>
+        <dependent-module archiveName="com.telluriumlang.tellurium-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.telluriumlang.tellurium/com.telluriumlang.tellurium">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.telluriumlang.tellurium.ide-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.telluriumlang.tellurium.ide/com.telluriumlang.tellurium.ide">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="com.telluriumlang.tellurium.web"/>
+        <property name="java-output-path" value="/com.telluriumlang.tellurium.web/target/classes"/>
+    </wb-module>
+</project-modules>

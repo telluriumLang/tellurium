@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="tellurium" nsURI="https://telluriumlang.github.io/tellurium"
+    nsPrefix="tellurium">
+  <eClassifiers xsi:type="ecore:EClass" name="AutomationTestSet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="testConfig" upperBound="-1"
+        eType="#//TestConfigurationStatement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="testcases" upperBound="-1"
+        eType="#//TestCase" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestConfigurationStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DriverConfig" eSuperTypes="#//TestConfigurationStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//DriverType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DriverWait" eSuperTypes="#//TestConfigurationStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="waitsec" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DriverType">
+    <eLiterals name="unithtml" literal="unithtml"/>
+    <eLiterals name="chrome" value="1" literal="chrome"/>
+    <eLiterals name="IE" value="2" literal="IE"/>
+    <eLiterals name="edge" value="3" literal="edge"/>
+    <eLiterals name="firefox" value="4" literal="firefox"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestCase">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

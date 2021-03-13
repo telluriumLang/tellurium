@@ -8,5 +8,23 @@ Bundle-SymbolicName: com.telluriumlang.tellurium; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
  org.eclipse.xtext.xbase,
- org.eclipse.equinox.common;bundle-version="3.5.0"
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.eclipse.xtend.lib;bundle-version="2.14.0",
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.telluriumlang.scoping,
+ com.telluriumlang.generator,
+ com.telluriumlang,
+ com.telluriumlang.services,
+ com.telluriumlang.tellurium,
+ com.telluriumlang.serializer,
+ com.telluriumlang.validation,
+ com.telluriumlang.tellurium.util,
+ com.telluriumlang.parser.antlr.internal,
+ com.telluriumlang.tellurium.impl,
+ com.telluriumlang.parser.antlr
+Import-Package: org.apache.log4j

@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.telluriumlang.tellurium.ui.tests
+Bundle-ManifestVersion: 2
+Bundle-Name: com.telluriumlang.tellurium.ui.tests
+Bundle-Vendor: Tellurium
+Bundle-Version: 0.0.1
+Bundle-SymbolicName: com.telluriumlang.tellurium.ui.tests; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: com.telluriumlang.tellurium.ui,
+ org.junit.jupiter.api;bundle-version="[5.0.0,6.0.0)",
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.xbase.testing,
+ org.eclipse.xtext.junit4,
+ org.eclipse.xtext.xbase.junit
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

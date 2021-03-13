@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.telluriumlang.tellurium
+Bundle-ManifestVersion: 2
+Bundle-Name: com.telluriumlang.tellurium
+Bundle-Vendor: Tellurium
+Bundle-Version: 0.0.1
+Bundle-SymbolicName: com.telluriumlang.tellurium; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

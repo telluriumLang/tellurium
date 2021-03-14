@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature id="com.telluriumlang.tellurium.feature" version="0.0.1">
+   <feature url="features/com.telluriumlang.tellurium.feature_0.0.1.jar" id="com.telluriumlang.tellurium.feature" version="0.0.1">
       <category name="main"/>
    </feature>
    <category-def name="main" label="Tellurium"/>

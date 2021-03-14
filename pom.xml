@@ -29,6 +29,7 @@
 		<module>com.telluriumlang.tellurium.repository</module>
 		<module>com.telluriumlang.tellurium.tests</module>
 		<module>com.telluriumlang.tellurium.ui.tests</module>
+		<module>com.telluriumlang.tellurium.updatesite</module>
 	</modules>
 	<build>
 		<plugins>

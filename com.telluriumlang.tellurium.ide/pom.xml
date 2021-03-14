@@ -92,6 +92,8 @@
 								org.eclipse.jdt.core,
 								org.eclipse.jdt.debug,
 								org.eclipse.jdt.launching,
+								org.eclipse.jdt.core,
+								org.eclipse.jdt.junit.core,
 								org.eclipse.text,
 								org.eclipse.xtend.typesystem.emf,
 								org.eclipse.xtend,

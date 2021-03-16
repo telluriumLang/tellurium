@@ -59,6 +59,7 @@ local.properties
 *.jar
 */src-gen/
 */xtend-gen/
+*/xsemantics-gen/
 *.xml_gen
 
 # Mac OS 

@@ -3,13 +3,14 @@
  */
 package com.telluriumlang.validation
 
+import com.telluriumlang.semantics.TelluriumSemanticValidator
 
 /**
  * This class contains custom validation rules. 
  *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
-class TelluriumValidator extends AbstractTelluriumValidator {
+class TelluriumValidator extends TelluriumSemanticValidator {
 	
 //	public static val INVALID_NAME = 'invalidName'
 //

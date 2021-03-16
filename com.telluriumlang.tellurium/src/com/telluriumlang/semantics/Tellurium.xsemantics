@@ -1,5 +1,5 @@
 import com.telluriumlang.validation.AbstractTelluriumValidator
 
-system com.telluriumlang.semantics.TelluriumSemanticValidator
+system com.telluriumlang.semantics.TelluriumSemantics
 
 validatorExtends AbstractTelluriumValidator

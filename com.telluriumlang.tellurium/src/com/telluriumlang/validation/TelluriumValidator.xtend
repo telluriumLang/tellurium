@@ -3,24 +3,27 @@
  */
 package com.telluriumlang.validation
 
-import com.telluriumlang.semantics.TelluriumSemanticValidator
+import org.eclipse.xtext.validation.Check
+import com.telluriumlang.tellurium.AutomationTestSet
+import com.telluriumlang.tellurium.DriverConfig
+import com.telluriumlang.tellurium.TelluriumPackage
+import com.telluriumlang.semantics.validation.TelluriumSemanticsValidator
 
 /**
  * This class contains custom validation rules. 
  *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
-class TelluriumValidator extends TelluriumSemanticValidator {
+class TelluriumValidator extends TelluriumSemanticsValidator {
 	
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					TelluriumPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+	@Check
+	def checkDriverConfig(AutomationTestSet ats){
+		var num = ats.testConfig.filter[t | t instanceof DriverConfig].size;
+		if(num > 1){
+			error("Cannot define more than 1 driver", 
+					TelluriumPackage.Literals.AUTOMATION_TEST_SET__TEST_CONFIG,
+					TelluriumErrorTypes.DUPLICATED_DRIVER_CFG)
+		}
+	}
 	
 }

@@ -3,11 +3,25 @@
  */
  
  package com.telluriumlang.generator
- 
+
+import java.util.List
+import java.util.ArrayList
+
 class TelluriumGeneratorContext {
 	
-	String className;
-	String packageName;
+	new(){
+		importList = new ArrayList<String>();
+		importList.addAll( #[
+			'org.junit.Assert',
+			'org.junit.Before',
+			'org.junit.Test',
+			'org.openqa.selenium.WebDriver'
+		]);
+	}
+	
+	var List<String> importList;
+	var String className;
+	var String packageName;
 	
 	def void setClassName(String className){
 		this.className = className;
@@ -23,6 +37,10 @@ class TelluriumGeneratorContext {
 	
 	def String getPackageName(){
 		return this.packageName;
+	}
+	
+	def List<String> getImportList(){
+		return this.importList;
 	}
 	
 }

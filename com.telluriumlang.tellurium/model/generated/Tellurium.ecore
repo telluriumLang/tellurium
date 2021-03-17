@@ -12,15 +12,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="DriverConfig" eSuperTypes="#//TestConfigurationStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//DriverType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DriverWait" eSuperTypes="#//TestConfigurationStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="DriverImplicityWait" eSuperTypes="#//TestConfigurationStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="waitsec" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DriverType">
-    <eLiterals name="unithtml" literal="unithtml"/>
-    <eLiterals name="chrome" value="1" literal="chrome"/>
+    <eLiterals name="HtmlUnit" literal="HtmlUnit"/>
+    <eLiterals name="Chrome" value="1" literal="Chrome"/>
     <eLiterals name="IE" value="2" literal="IE"/>
-    <eLiterals name="edge" value="3" literal="edge"/>
-    <eLiterals name="firefox" value="4" literal="firefox"/>
+    <eLiterals name="Edge" value="3" literal="Edge"/>
+    <eLiterals name="Firefox" value="4" literal="Firefox"/>
+    <eLiterals name="Safari" value="5" literal="Safari"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TestCase">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

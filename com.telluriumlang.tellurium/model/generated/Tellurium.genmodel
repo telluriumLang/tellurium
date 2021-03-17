@@ -7,11 +7,12 @@
   <genPackages prefix="Tellurium" basePackage="com.telluriumlang" disposableProviderFactory="true"
       fileExtensions="te" ecorePackage="Tellurium.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//DriverType">
-      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/unithtml"/>
-      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/chrome"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/HtmlUnit"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/Chrome"/>
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/IE"/>
-      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/edge"/>
-      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/firefox"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/Edge"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/Firefox"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/Safari"/>
     </genEnums>
     <genClasses ecoreClass="Tellurium.ecore#//AutomationTestSet">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AutomationTestSet/testConfig"/>
@@ -21,8 +22,8 @@
     <genClasses ecoreClass="Tellurium.ecore#//DriverConfig">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//DriverConfig/type"/>
     </genClasses>
-    <genClasses ecoreClass="Tellurium.ecore#//DriverWait">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//DriverWait/waitsec"/>
+    <genClasses ecoreClass="Tellurium.ecore#//DriverImplicityWait">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//DriverImplicityWait/waitsec"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//TestCase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//TestCase/name"/>

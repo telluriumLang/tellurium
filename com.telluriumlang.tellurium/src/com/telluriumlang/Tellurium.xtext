@@ -10,19 +10,19 @@ AutomationTestSet:
 ;
 
 TestConfigurationStatement:
-	DriverConfig | DriverWait
+	DriverConfig | DriverImplicityWait
 ;
 
 DriverConfig:
 	'using' type=DriverType 'driver' ';'
 ;
 
-DriverWait:
-	'default' 'driver' 'wait' waitsec=INT ';'
+DriverImplicityWait:
+	'driver' 'implicitly' 'wait' waitsec=INT 's' ';'
 ;
 
 enum DriverType:
-	unithtml | chrome | IE | edge | firefox
+	HtmlUnit | Chrome | IE | Edge | Firefox | Safari
 ;
 
 TestCase:

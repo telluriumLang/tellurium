@@ -10,6 +10,10 @@ import org.eclipse.xtext.generator.IGeneratorContext
 import com.telluriumlang.tellurium.AutomationTestSet
 import com.telluriumlang.tellurium.TestCase
 import com.telluriumlang.tellurium.DriverImplicityWait
+import com.telluriumlang.tellurium.SimpleKeyboardInput
+import com.telluriumlang.tellurium.ComplexKeyboardInput
+import com.telluriumlang.tellurium.KeyboardInput
+import com.telluriumlang.tellurium.ModifierKey
 
 /**
  * Generates code from the Tellurium model on save.
@@ -83,7 +87,38 @@ class TelluriumGenerator extends AbstractGenerator {
 	@Test
 	public void «ats.name»() {
 		//TODO: Test will be added here
+		«ats.statements.map[generateProgram(ctx)].join('\n')»
 	}
 	'''
+	
+	def dispatch String generateProgram(SimpleKeyboardInput ski, TelluriumGeneratorContext ctx)'''
+	«if(ski.target!==null){'''//target:«ski.target»'''}»
+	//.sendKeys("«ski.keySequence»");
+	new Actions(driver).sendKeys("«ski.keySequence»").build().perform();
+	'''
+	
+	def dispatch String generateProgram(ComplexKeyboardInput cki, TelluriumGeneratorContext ctx){
+		if(!ctx.importList.exists[im | im === "org.openqa.selenium.Keys"]){
+			ctx.importList+="org.openqa.selenium.Keys"
+		}
+	'''
+	«if(cki.target!==null){'''//target:«cki.target»'''}»
+	//.keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys("«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»);
+	new Actions(driver).keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys("«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).build().perform();
+	
+	'''
+	}
+	
+	def interpretModifier(ModifierKey k){
+		switch k {
+			case ModifierKey::SHIFT: '''SHIFT'''
+			case ModifierKey::ALT : '''ALT'''
+			case ModifierKey::CTRL : '''CONTROL'''
+			case ModifierKey::META : '''META'''
+			case ModifierKey::WIN : '''META'''
+			
+		}
+	}
+	
 }
 

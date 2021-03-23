@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Tellurium - A DSL for automation testing" modelDirectory="/com.telluriumlang.tellurium/src-gen"
     modelPluginID="com.telluriumlang.tellurium" forceOverwrite="true" modelName="Tellurium"
     updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.12">
+    complianceLevel="8.0" copyrightFields="false" runtimeVersion="2.24">
   <genPackages prefix="Tellurium" basePackage="com.telluriumlang" disposableProviderFactory="true"
       fileExtensions="te" ecorePackage="Tellurium.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//DriverType">
@@ -13,6 +13,13 @@
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/Edge"/>
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/Firefox"/>
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/Safari"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//ModifierKey">
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//ModifierKey/shift"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//ModifierKey/alt"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//ModifierKey/ctrl"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//ModifierKey/meta"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//ModifierKey/win"/>
     </genEnums>
     <genClasses ecoreClass="Tellurium.ecore#//AutomationTestSet">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AutomationTestSet/testConfig"/>
@@ -27,6 +34,16 @@
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//TestCase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//TestCase/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//TestCase/Statements"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//TestStatement"/>
+    <genClasses ecoreClass="Tellurium.ecore#//KeyboardInput">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//KeyboardInput/keySequence"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//KeyboardInput/target"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//SimpleKeyboardInput"/>
+    <genClasses ecoreClass="Tellurium.ecore#//ComplexKeyboardInput">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//ComplexKeyboardInput/modifier"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

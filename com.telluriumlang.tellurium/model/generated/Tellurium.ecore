@@ -25,5 +25,23 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TestCase">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Statements" upperBound="-1"
+        eType="#//TestStatement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="KeyboardInput" eSuperTypes="#//TestStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="keySequence" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleKeyboardInput" eSuperTypes="#//KeyboardInput"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexKeyboardInput" eSuperTypes="#//KeyboardInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifier" eType="#//ModifierKey"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ModifierKey">
+    <eLiterals name="shift" literal="shift"/>
+    <eLiterals name="alt" value="1" literal="alt"/>
+    <eLiterals name="ctrl" value="2" literal="ctrl"/>
+    <eLiterals name="meta" value="3" literal="meta"/>
+    <eLiterals name="win" value="4" literal="win"/>
   </eClassifiers>
 </ecore:EPackage>

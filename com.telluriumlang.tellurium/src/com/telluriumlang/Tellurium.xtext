@@ -26,5 +26,27 @@ enum DriverType:
 ;
 
 TestCase:
-	'test' name=ID '{' '}'
+	'test' name=ID '{' Statements+=TestStatement* '}'
 ;
+
+TestStatement:
+	KeyboardInput
+;
+
+KeyboardInput :
+	SimpleKeyboardInput | ComplexKeyboardInput
+;
+
+SimpleKeyboardInput :
+	'enter' keySequence = STRING ( target = STRING )? //TODO:change target to cross reference
+;
+
+ComplexKeyboardInput :
+	'enter' modifier = ModifierKey "+" keySequence = STRING ( target = STRING )? //TODO:change target to cross reference
+;
+
+enum ModifierKey :
+	shift | alt | ctrl | meta | win
+;
+
+

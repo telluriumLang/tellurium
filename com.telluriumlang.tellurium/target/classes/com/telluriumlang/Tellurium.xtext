@@ -30,7 +30,7 @@ TestCase:
 ;
 
 TestStatement:
-	KeyboardInput
+	KeyboardInput | MouseInput
 ;
 
 KeyboardInput :
@@ -49,4 +49,11 @@ enum ModifierKey :
 	shift | alt | ctrl | meta | win
 ;
 
+MouseInput :
+	'mouse' mAction = MouseAction ( target = STRING )? //TODO:change target to cross reference
+;
+
+enum MouseAction :
+	click | doubleClick | clickAndHold | rightClick | release
+;
 

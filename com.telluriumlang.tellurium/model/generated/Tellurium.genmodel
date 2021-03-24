@@ -21,6 +21,13 @@
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//ModifierKey/meta"/>
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//ModifierKey/win"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//MouseAction">
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//MouseAction/click"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//MouseAction/doubleClick"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//MouseAction/clickAndHold"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//MouseAction/rightClick"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//MouseAction/release"/>
+    </genEnums>
     <genClasses ecoreClass="Tellurium.ecore#//AutomationTestSet">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AutomationTestSet/testConfig"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AutomationTestSet/testcases"/>
@@ -36,14 +43,18 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//TestCase/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//TestCase/Statements"/>
     </genClasses>
-    <genClasses ecoreClass="Tellurium.ecore#//TestStatement"/>
+    <genClasses ecoreClass="Tellurium.ecore#//TestStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//TestStatement/target"/>
+    </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//KeyboardInput">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//KeyboardInput/keySequence"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//KeyboardInput/target"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//SimpleKeyboardInput"/>
     <genClasses ecoreClass="Tellurium.ecore#//ComplexKeyboardInput">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//ComplexKeyboardInput/modifier"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//MouseInput">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//MouseInput/mAction"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

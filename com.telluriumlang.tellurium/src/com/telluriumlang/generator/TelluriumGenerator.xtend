@@ -14,6 +14,8 @@ import com.telluriumlang.tellurium.SimpleKeyboardInput
 import com.telluriumlang.tellurium.ComplexKeyboardInput
 import com.telluriumlang.tellurium.KeyboardInput
 import com.telluriumlang.tellurium.ModifierKey
+import com.telluriumlang.tellurium.MouseAction
+import com.telluriumlang.tellurium.MouseInput
 
 /**
  * Generates code from the Tellurium model on save.
@@ -105,17 +107,33 @@ class TelluriumGenerator extends AbstractGenerator {
 	«if(cki.target!==null){'''//target:«cki.target»'''}»
 	//.keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys("«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»);
 	new Actions(driver).keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys("«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).build().perform();
-	
 	'''
 	}
 	
 	def interpretModifier(ModifierKey k){
 		switch k {
-			case ModifierKey::SHIFT: '''SHIFT'''
+			case ModifierKey::SHIFT : '''SHIFT'''
 			case ModifierKey::ALT : '''ALT'''
 			case ModifierKey::CTRL : '''CONTROL'''
 			case ModifierKey::META : '''META'''
 			case ModifierKey::WIN : '''META'''
+			
+		}
+	}
+	
+	def dispatch String generateProgram(MouseInput mi, TelluriumGeneratorContext ctx)'''
+	«if(mi.target!==null){'''//target:«mi.target»'''}»
+	new Actions(driver).«mi.MAction.interpretMouseAction»().build().perform();
+	'''
+	
+	
+	def interpretMouseAction(MouseAction ma){
+		switch ma {
+			case MouseAction::CLICK : '''click'''
+			case MouseAction::DOUBLE_CLICK : '''doubleClick'''
+			case MouseAction::CLICK_AND_HOLD : '''clickAndHold'''
+			case MouseAction::RIGHT_CLICK : '''contextClick'''
+			case MouseAction::RELEASE : '''release'''
 			
 		}
 	}

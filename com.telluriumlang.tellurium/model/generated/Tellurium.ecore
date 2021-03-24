@@ -28,10 +28,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="Statements" upperBound="-1"
         eType="#//TestStatement" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TestStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TestStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="KeyboardInput" eSuperTypes="#//TestStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="keySequence" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SimpleKeyboardInput" eSuperTypes="#//KeyboardInput"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComplexKeyboardInput" eSuperTypes="#//KeyboardInput">
@@ -43,5 +44,15 @@
     <eLiterals name="ctrl" value="2" literal="ctrl"/>
     <eLiterals name="meta" value="3" literal="meta"/>
     <eLiterals name="win" value="4" literal="win"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MouseInput" eSuperTypes="#//TestStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mAction" eType="#//MouseAction"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MouseAction">
+    <eLiterals name="click" literal="click"/>
+    <eLiterals name="doubleClick" value="1" literal="doubleClick"/>
+    <eLiterals name="clickAndHold" value="2" literal="clickAndHold"/>
+    <eLiterals name="rightClick" value="3" literal="rightClick"/>
+    <eLiterals name="release" value="4" literal="release"/>
   </eClassifiers>
 </ecore:EPackage>

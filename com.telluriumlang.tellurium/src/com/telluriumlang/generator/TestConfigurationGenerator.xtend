@@ -21,7 +21,7 @@ class TestConfigurationGenerator {
 		«dfg.testConfig.map[ e | generateProgram(e,ctx)].join('\n')»
 		«IF !definedDriver»
 		if(driver == null){
-			driver = new HtmlUnitDriver(true);
+			driver = new «this.getDriverName(DriverType.HTML_UNIT, ctx)»;
 		}
 		«ENDIF»
 	}

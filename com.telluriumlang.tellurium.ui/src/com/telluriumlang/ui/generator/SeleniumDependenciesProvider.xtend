@@ -16,7 +16,7 @@ class SeleniumDependenciesProvider {
 	
 	
 	protected static val LIB_URL_LIST = #[
-		"https://repo1.maven.org/maven2/com/google/guava/guava/25.0-jre/guava-25.0-jre.jar",
+		"https://repo1.maven.org/maven2/com/google/guava/guava/19.0/guava-19.0.jar",
 		"https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/3.11.0/okhttp-3.11.0.jar",
 		"https://repo1.maven.org/maven2/com/squareup/okio/okio/1.14.0/okio-1.14.0.jar",
 		"https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.8.15/byte-buddy-1.8.15.jar",
@@ -30,16 +30,16 @@ class SeleniumDependenciesProvider {
 		"https://repo1.maven.org/maven2/commons-codec/commons-codec/1.10/commons-codec-1.10.jar",
 		"https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar",
 		"https://repo1.maven.org/maven2/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-api/3.141.59/selenium-api-3.141.59.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-chrome-driver/3.141.59/selenium-chrome-driver-3.141.59.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-edge-driver/3.141.59/selenium-edge-driver-3.141.59.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-firefox-driver/3.141.59/selenium-firefox-driver-3.141.59.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-ie-driver/3.141.59/selenium-ie-driver-3.141.59.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-opera-driver/3.141.59/selenium-opera-driver-3.141.59.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-remote-driver/2.47.1/selenium-remote-driver-2.47.1.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-safari-driver/3.141.59/selenium-safari-driver-3.141.59.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-support/3.141.59/selenium-support-3.141.59.jar",
-		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-htmlunit-driver/2.47.1/selenium-htmlunit-driver-2.47.1.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-api/2.52.0/selenium-api-2.52.0.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-chrome-driver/2.52.0/selenium-chrome-driver-2.52.0.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-edge-driver/2.52.0/selenium-edge-driver-2.52.0.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-firefox-driver/2.52.0/selenium-firefox-driver-2.52.0.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-ie-driver/2.52.0/selenium-ie-driver-2.52.0.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-opera-driver/3.0.0/selenium-opera-driver-3.0.0.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-remote-driver/2.52.0/selenium-remote-driver-2.52.0.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-safari-driver/2.52.0/selenium-safari-driver-2.52.0.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-support/2.52.0/selenium-support-2.52.0.jar",
+		"https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-htmlunit-driver/2.52.0/selenium-htmlunit-driver-2.52.0.jar",
 		"https://repo1.maven.org/maven2/net/sourceforge/htmlunit/htmlunit/2.17/htmlunit-2.17.jar",
 		"https://repo1.maven.org/maven2/net/sourceforge/htmlunit/htmlunit-core-js/2.17/htmlunit-core-js-2.17.jar",
 		"https://repo1.maven.org/maven2/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar",
@@ -56,7 +56,9 @@ class SeleniumDependenciesProvider {
 		"https://repo1.maven.org/maven2/net/java/dev/jna/jna/4.1.0/jna-4.1.0.jar",
 		"https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.jar",
 		"https://repo1.maven.org/maven2/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3.jar",
-		"https://repo1.maven.org/maven2/com/google/code/gson/gson/2.3.1/gson-2.3.1.jar"
+		"https://repo1.maven.org/maven2/com/google/code/gson/gson/2.3.1/gson-2.3.1.jar",
+		"https://repo1.maven.org/maven2/org/webbitserver/webbit/0.4.14/webbit-0.4.14.jar",
+		"https://repo1.maven.org/maven2/io/netty/netty/3.5.2.Final/netty-3.5.2.Final.jar"
 	];
 	
 	def static List<IPath> getLibs(IProject project,SubMonitor subMonitor){

@@ -26,11 +26,11 @@ enum DriverType:
 ;
 
 TestCase:
-	'test' name=ID '{' Statements+=TestStatement* '}'
+	'test' name=ID '{' statements+=TestStatement* '}'
 ;
 
 TestStatement:
-	KeyboardInput | MouseInput
+	KeyboardInput | MouseInput | OpenPage
 ;
 
 KeyboardInput :
@@ -55,5 +55,9 @@ MouseInput :
 
 enum MouseAction :
 	click | doubleClick | clickAndHold | rightClick | release
+;
+
+OpenPage:
+	'open' target=STRING
 ;
 

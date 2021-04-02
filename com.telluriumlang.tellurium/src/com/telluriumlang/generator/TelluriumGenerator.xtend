@@ -16,6 +16,7 @@ import com.telluriumlang.tellurium.KeyboardInput
 import com.telluriumlang.tellurium.ModifierKey
 import com.telluriumlang.tellurium.MouseAction
 import com.telluriumlang.tellurium.MouseInput
+import com.telluriumlang.tellurium.OpenPage
 
 /**
  * Generates code from the Tellurium model on save.
@@ -88,7 +89,6 @@ class TelluriumGenerator extends AbstractGenerator {
 	def dispatch String generateProgram(TestCase ats, TelluriumGeneratorContext ctx)'''
 	@Test
 	public void «ats.name»() {
-		//TODO: Test will be added here
 		«ats.statements.map[generateProgram(ctx)].join('\n')»
 	}
 	'''
@@ -138,5 +138,8 @@ class TelluriumGenerator extends AbstractGenerator {
 		}
 	}
 	
+	def dispatch String generateProgram(OpenPage openPage, TelluriumGeneratorContext ctx)'''
+	driver.get("«openPage.target»");
+	'''
 }
 

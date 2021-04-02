@@ -41,7 +41,7 @@
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//TestCase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//TestCase/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//TestCase/Statements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//TestCase/statements"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//TestStatement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//TestStatement/target"/>
@@ -56,5 +56,6 @@
     <genClasses ecoreClass="Tellurium.ecore#//MouseInput">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//MouseInput/mAction"/>
     </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//OpenPage"/>
   </genPackages>
 </genmodel:GenModel>

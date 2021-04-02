@@ -25,7 +25,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TestCase">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Statements" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//TestStatement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TestStatement">
@@ -55,4 +55,5 @@
     <eLiterals name="rightClick" value="3" literal="rightClick"/>
     <eLiterals name="release" value="4" literal="release"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OpenPage" eSuperTypes="#//TestStatement"/>
 </ecore:EPackage>

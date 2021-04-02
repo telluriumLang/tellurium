@@ -14,6 +14,19 @@
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/Firefox"/>
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//DriverType/Safari"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//NavigateAction">
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//NavigateAction/back"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//NavigateAction/forward"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//NavigateAction/refresh"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//WindowActions">
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//WindowActions/maximize"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//WindowActions/fullscreen"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//QuitAndCloseAction">
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//QuitAndCloseAction/quit"/>
+      <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//QuitAndCloseAction/close"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//ModifierKey">
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//ModifierKey/shift"/>
       <genEnumLiterals ecoreEnumLiteral="Tellurium.ecore#//ModifierKey/alt"/>
@@ -43,11 +56,22 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//TestCase/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//TestCase/statements"/>
     </genClasses>
-    <genClasses ecoreClass="Tellurium.ecore#//TestStatement">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//TestStatement/target"/>
+    <genClasses ecoreClass="Tellurium.ecore#//TestStatement"/>
+    <genClasses ecoreClass="Tellurium.ecore#//OpenPage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//OpenPage/target"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//Navigate">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//Navigate/action"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//Window">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//Window/action"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//QuitAndClose">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//QuitAndClose/action"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//KeyboardInput">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//KeyboardInput/keySequence"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//KeyboardInput/target"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//SimpleKeyboardInput"/>
     <genClasses ecoreClass="Tellurium.ecore#//ComplexKeyboardInput">
@@ -55,7 +79,7 @@
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//MouseInput">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//MouseInput/mAction"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//MouseInput/target"/>
     </genClasses>
-    <genClasses ecoreClass="Tellurium.ecore#//OpenPage"/>
   </genPackages>
 </genmodel:GenModel>

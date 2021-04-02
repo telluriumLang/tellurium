@@ -28,11 +28,35 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//TestStatement" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TestStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="TestStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OpenPage" eSuperTypes="#//TestStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Navigate" eSuperTypes="#//TestStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="#//NavigateAction"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="NavigateAction">
+    <eLiterals name="back" literal="back"/>
+    <eLiterals name="forward" value="1" literal="forward"/>
+    <eLiterals name="refresh" value="2" literal="refresh"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Window" eSuperTypes="#//TestStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="#//WindowActions"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="WindowActions">
+    <eLiterals name="maximize" literal="maximize"/>
+    <eLiterals name="fullscreen" value="1" literal="fullscreen"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QuitAndClose" eSuperTypes="#//TestStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="#//QuitAndCloseAction"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="QuitAndCloseAction">
+    <eLiterals name="quit" literal="quit"/>
+    <eLiterals name="close" value="1" literal="close"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="KeyboardInput" eSuperTypes="#//TestStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="keySequence" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SimpleKeyboardInput" eSuperTypes="#//KeyboardInput"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComplexKeyboardInput" eSuperTypes="#//KeyboardInput">
@@ -47,6 +71,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MouseInput" eSuperTypes="#//TestStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="mAction" eType="#//MouseAction"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MouseAction">
     <eLiterals name="click" literal="click"/>
@@ -55,5 +80,4 @@
     <eLiterals name="rightClick" value="3" literal="rightClick"/>
     <eLiterals name="release" value="4" literal="release"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OpenPage" eSuperTypes="#//TestStatement"/>
 </ecore:EPackage>

@@ -30,7 +30,35 @@ TestCase:
 ;
 
 TestStatement:
-	KeyboardInput | MouseInput | OpenPage
+	OpenPage | Navigate | Window | QuitAndClose | KeyboardInput | MouseInput
+;
+
+OpenPage:
+	'open' target=STRING
+;
+
+Navigate:
+	'navigate' action=NavigateAction
+;
+
+enum NavigateAction:
+	back | forward | refresh
+;
+
+Window:
+	'window' action=WindowActions
+;
+
+enum WindowActions:
+	maximize | fullscreen
+;
+
+QuitAndClose:
+	action= QuitAndCloseAction
+;
+
+enum QuitAndCloseAction:
+	quit | close
 ;
 
 KeyboardInput :
@@ -56,8 +84,3 @@ MouseInput :
 enum MouseAction :
 	click | doubleClick | clickAndHold | rightClick | release
 ;
-
-OpenPage:
-	'open' target=STRING
-;
-

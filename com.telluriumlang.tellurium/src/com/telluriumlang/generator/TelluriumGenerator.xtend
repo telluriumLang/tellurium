@@ -17,6 +17,10 @@ import com.telluriumlang.tellurium.ModifierKey
 import com.telluriumlang.tellurium.MouseAction
 import com.telluriumlang.tellurium.MouseInput
 import com.telluriumlang.tellurium.OpenPage
+import com.telluriumlang.tellurium.QuitAndClose
+import com.telluriumlang.tellurium.Navigate
+import com.telluriumlang.tellurium.QuitAndCloseAction
+import com.telluriumlang.tellurium.Window
 
 /**
  * Generates code from the Tellurium model on save.
@@ -93,6 +97,15 @@ class TelluriumGenerator extends AbstractGenerator {
 	}
 	'''
 	
+	def dispatch String generateProgram(QuitAndClose qandc, TelluriumGeneratorContext ctx)'''
+	«IF qandc.action == QuitAndCloseAction.CLOSE »
+	driver.close();
+	«ELSE»
+	driver.quit();
+	driver = null;
+	«ENDIF»
+	'''
+	
 	def dispatch String generateProgram(SimpleKeyboardInput ski, TelluriumGeneratorContext ctx)'''
 	«if(ski.target!==null){'''//target:«ski.target»'''}»
 	//.sendKeys("«ski.keySequence»");
@@ -140,6 +153,16 @@ class TelluriumGenerator extends AbstractGenerator {
 	
 	def dispatch String generateProgram(OpenPage openPage, TelluriumGeneratorContext ctx)'''
 	driver.get("«openPage.target»");
+	'''
+	
+	
+	
+	def dispatch String generateProgram(Navigate navi, TelluriumGeneratorContext ctx)'''
+	driver.navigate().«navi.action»();
+	'''
+	
+	def dispatch String generateProgram(Window window, TelluriumGeneratorContext ctx)'''
+	driver.manage().window().«window.action»();
 	'''
 }
 

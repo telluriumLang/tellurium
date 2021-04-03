@@ -67,11 +67,11 @@ KeyboardInput :
 ;
 
 SimpleKeyboardInput :
-	'enter' keySequence = STRING ( target = STRING )? //TODO:change target to cross reference
+	'enter' keySequence = STRING ( 'into' target = STRING )? //TODO:change target to cross reference
 ;
 
 ComplexKeyboardInput :
-	'enter' modifier = ModifierKey "+" keySequence = STRING ( target = STRING )? //TODO:change target to cross reference
+	'enter' modifier = ModifierKey "+" keySequence = STRING ( 'into' target = STRING )? //TODO:change target to cross reference
 ;
 
 enum ModifierKey :
@@ -79,7 +79,7 @@ enum ModifierKey :
 ;
 
 MouseInput :
-	'mouse' mAction = MouseAction ( target = STRING )? //TODO:change target to cross reference
+	'mouse' mAction = MouseAction ( 'on' target = STRING )? //TODO:change target to cross reference
 ;
 
 enum MouseAction :
@@ -95,7 +95,7 @@ CookieAction :
 ;
 
 CookieAdd :
-	'add' key = STRING value = STRING
+	'add' key = STRING 'with' 'value' value = STRING
 ;
 
 CookieDelete :

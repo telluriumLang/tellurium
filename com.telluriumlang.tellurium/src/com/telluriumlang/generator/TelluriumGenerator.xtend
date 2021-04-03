@@ -21,6 +21,9 @@ import com.telluriumlang.tellurium.QuitAndClose
 import com.telluriumlang.tellurium.Navigate
 import com.telluriumlang.tellurium.QuitAndCloseAction
 import com.telluriumlang.tellurium.Window
+import com.telluriumlang.tellurium.CookieAdd
+import com.telluriumlang.tellurium.CookieDelete
+import com.telluriumlang.tellurium.Cookie
 
 /**
  * Generates code from the Tellurium model on save.
@@ -163,6 +166,22 @@ class TelluriumGenerator extends AbstractGenerator {
 	
 	def dispatch String generateProgram(Window window, TelluriumGeneratorContext ctx)'''
 	driver.manage().window().«window.action»();
+	'''
+	
+	def dispatch String generateProgram(Cookie cookie, TelluriumGeneratorContext ctx){
+		cookie.action.generateProgram(ctx)
+	}
+	
+	def dispatch String generateProgram(CookieAdd cookieAdd, TelluriumGeneratorContext ctx)'''
+	driver.manage().addCookie(new Cookie("«cookieAdd.key»","«cookieAdd.value»"));
+	'''
+	
+	def dispatch String generateProgram(CookieDelete cookieDelete, TelluriumGeneratorContext ctx)'''
+	«IF(cookieDelete.key===null)»
+	driver.manage().deleteAllCookies();
+	«ELSE»
+	driver.manage().deleteCookieNamed("«cookieDelete.key»");
+	«ENDIF»
 	'''
 }
 

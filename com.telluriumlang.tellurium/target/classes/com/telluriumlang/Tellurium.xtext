@@ -30,7 +30,7 @@ TestCase:
 ;
 
 TestStatement:
-	OpenPage | Navigate | Window | QuitAndClose | KeyboardInput | MouseInput
+	OpenPage | Navigate | Window | QuitAndClose | KeyboardInput | MouseInput | Cookie
 ;
 
 OpenPage:
@@ -83,4 +83,20 @@ MouseInput :
 
 enum MouseAction :
 	click | doubleClick | clickAndHold | rightClick | release
+;
+
+Cookie :
+	'cookie' action=CookieAction
+;
+
+CookieAction :
+	CookieAdd | CookieDelete
+;
+
+CookieAdd :
+	'add' key = STRING value = STRING
+;
+
+CookieDelete :
+	{CookieDelete} 'delete' ( key = STRING | 'all' )
 ;

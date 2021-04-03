@@ -16,7 +16,8 @@ class TelluriumGeneratorContext {
 			'org.junit.Before',
 			'org.junit.Test',
 			'org.openqa.selenium.WebDriver',
-			'org.openqa.selenium.interactions.*'
+			'org.openqa.selenium.interactions.*',
+			'org.openqa.selenium.*'
 		]);
 	}
 	

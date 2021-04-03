@@ -80,4 +80,15 @@
     <eLiterals name="rightClick" value="3" literal="rightClick"/>
     <eLiterals name="release" value="4" literal="release"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Cookie" eSuperTypes="#//TestStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="#//CookieAction"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CookieAction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CookieAdd" eSuperTypes="#//CookieAction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CookieDelete" eSuperTypes="#//CookieAction"/>
 </ecore:EPackage>

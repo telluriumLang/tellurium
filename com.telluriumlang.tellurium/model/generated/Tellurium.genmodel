@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Tellurium - A DSL for automation testing" modelDirectory="/com.telluriumlang.tellurium/src-gen"
     modelPluginID="com.telluriumlang.tellurium" forceOverwrite="true" modelName="Tellurium"
     updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="8.0" copyrightFields="false" runtimeVersion="2.24">
+    complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.24">
   <genPackages prefix="Tellurium" basePackage="com.telluriumlang" disposableProviderFactory="true"
       fileExtensions="te" ecorePackage="Tellurium.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//DriverType">
@@ -58,7 +58,7 @@
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//TestStatement"/>
     <genClasses ecoreClass="Tellurium.ecore#//OpenPage">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//OpenPage/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//OpenPage/target"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//Navigate">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//Navigate/action"/>
@@ -91,5 +91,22 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//CookieAdd/value"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//CookieDelete"/>
+    <genClasses ecoreClass="Tellurium.ecore#//VariableDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//VariableDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//VariableDeclaration/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//Variables"/>
+    <genClasses ecoreClass="Tellurium.ecore#//DoubleLitera">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//DoubleLitera/val"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//IntLitera">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//IntLitera/val"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//StringLitera">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//StringLitera/val"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//VarExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Tellurium.ecore#//VarExpression/var"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

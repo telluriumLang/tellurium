@@ -30,11 +30,12 @@ TestCase:
 ;
 
 TestStatement:
-	OpenPage | Navigate | Window | QuitAndClose | KeyboardInput | MouseInput | Cookie
+	OpenPage | Navigate | Window | QuitAndClose | KeyboardInput | MouseInput | Cookie | 
+	VariableDeclaration
 ;
 
 OpenPage:
-	'open' target=STRING
+	'open' target=Variables
 ;
 
 Navigate:
@@ -99,4 +100,32 @@ CookieAdd :
 
 CookieDelete :
 	{CookieDelete} 'delete' ( key = STRING | 'all' )
+;
+
+VariableDeclaration:
+	 "let" name=ID "=" value=Variables
+;
+
+Variables:
+	DoubleLitera | IntLitera | StringLitera | VarExpression
+;
+
+DoubleLitera:
+	val = Double
+;
+
+IntLitera:
+	val = INT
+;
+
+StringLitera:
+	val = STRING
+;
+
+VarExpression:
+	var = [VariableDeclaration]
+;
+
+Double returns ecore::EDouble hidden():
+	INT? "." INT
 ;

@@ -24,6 +24,12 @@ import com.telluriumlang.tellurium.Window
 import com.telluriumlang.tellurium.CookieAdd
 import com.telluriumlang.tellurium.CookieDelete
 import com.telluriumlang.tellurium.Cookie
+import com.telluriumlang.tellurium.VariableDeclaration
+import com.telluriumlang.tellurium.DoubleLitera
+import com.telluriumlang.tellurium.IntLitera
+import com.telluriumlang.tellurium.StringLitera
+import com.telluriumlang.tellurium.Variables
+import com.telluriumlang.tellurium.VarExpression
 
 /**
  * Generates code from the Tellurium model on save.
@@ -96,7 +102,7 @@ class TelluriumGenerator extends AbstractGenerator {
 	def dispatch String generateProgram(TestCase ats, TelluriumGeneratorContext ctx)'''
 	@Test
 	public void «ats.name»() {
-		«ats.statements.map[generateProgram(ctx)].join('\n')»
+		«ats.statements.map[generateProgram(ctx).trim].join('\n')»
 	}
 	'''
 	
@@ -154,19 +160,13 @@ class TelluriumGenerator extends AbstractGenerator {
 		}
 	}
 	
-	def dispatch String generateProgram(OpenPage openPage, TelluriumGeneratorContext ctx)'''
-	driver.get("«openPage.target»");
-	'''
+	def dispatch String generateProgram(OpenPage openPage, TelluriumGeneratorContext ctx)'''driver.get(«openPage.target.generateProgram(ctx)»);'''
 	
 	
 	
-	def dispatch String generateProgram(Navigate navi, TelluriumGeneratorContext ctx)'''
-	driver.navigate().«navi.action»();
-	'''
+	def dispatch String generateProgram(Navigate navi, TelluriumGeneratorContext ctx)'''driver.navigate().«navi.action»();'''
 	
-	def dispatch String generateProgram(Window window, TelluriumGeneratorContext ctx)'''
-	driver.manage().window().«window.action»();
-	'''
+	def dispatch String generateProgram(Window window, TelluriumGeneratorContext ctx)'''driver.manage().window().«window.action»();'''
 	
 	def dispatch String generateProgram(Cookie cookie, TelluriumGeneratorContext ctx){
 		cookie.action.generateProgram(ctx)
@@ -183,5 +183,32 @@ class TelluriumGenerator extends AbstractGenerator {
 	driver.manage().deleteCookieNamed("«cookieDelete.key»");
 	«ENDIF»
 	'''
+	
+	def dispatch String generateProgram(VariableDeclaration vd, TelluriumGeneratorContext ctx)'''
+	«vd.value.inferType» «vd.name» = «vd.value.generateProgram(ctx)»;
+	'''
+	
+	def String inferType(Variables vars){
+		if(vars instanceof DoubleLitera){
+			return "double"
+		}else if(vars instanceof IntLitera){
+			return "int"
+		}else if(vars instanceof StringLitera){
+			return "String"
+		}else if(vars instanceof VarExpression){
+			return (vars as VarExpression).^var.value.inferType
+		}
+		return "Object"
+	}
+	
+	def dispatch String generateProgram(Variables vars, TelluriumGeneratorContext ctx)''''''
+	
+	def dispatch String generateProgram(DoubleLitera fl, TelluriumGeneratorContext ctx)'''«fl.^val»'''
+	
+	def dispatch String generateProgram(IntLitera il, TelluriumGeneratorContext ctx)'''«il.^val»'''
+	
+	def dispatch String generateProgram(StringLitera sl, TelluriumGeneratorContext ctx)'''"«sl.^val»"'''
+	
+	def dispatch String generateProgram(VarExpression sl, TelluriumGeneratorContext ctx)'''«sl.^var.name»'''
 }
 

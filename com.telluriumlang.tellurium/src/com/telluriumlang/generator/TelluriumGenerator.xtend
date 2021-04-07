@@ -192,9 +192,9 @@ class TelluriumGenerator extends AbstractGenerator {
 	
 	def dispatch String generateProgram(VariableDeclaration vd, TelluriumGeneratorContext ctx)'''
 	«IF vd.value instanceof ElementExpressions»
-	«ElementSelectorGenerator.generateDeclaration(vd.value as ElementExpressions, ctx).replace("$_NAME_$",vd.name)»;
+	«ElementSelectorGenerator.generateDeclaration(vd.value as ElementExpressions, vd.name, ctx)»;
 	«ELSEIF vd.value instanceof ExtractElementFromList»
-	«ElementSelectorGenerator.generateDeclaration(vd.value as ExtractElementFromList, ctx).replace("$_NAME_$",vd.name)»;
+	«ElementSelectorGenerator.generateDeclaration(vd.value as ExtractElementFromList, vd.name, ctx)»;
 	«ELSE»
 	«vd.value.inferType(ctx)» «vd.name» = «vd.value.generateProgram(ctx)»;
 	«ENDIF»
@@ -222,10 +222,6 @@ class TelluriumGenerator extends AbstractGenerator {
 	def dispatch String generateProgram(StringLitera sl, TelluriumGeneratorContext ctx)'''"«sl.^val»"'''
 	
 	def dispatch String generateProgram(VarExpression sl, TelluriumGeneratorContext ctx)'''«sl.^var.name»'''
-	
-	def dispatch String generateProgram(ElementExpressions exp, TelluriumGeneratorContext ctx)'''
-	«ElementSelectorGenerator.generateDeclaration(exp,ctx)»
-	'''
 	
 	def dispatch String generateProgram(ElementReferences exp, TelluriumGeneratorContext ctx)''''''
 	

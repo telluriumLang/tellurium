@@ -135,42 +135,52 @@ ElementExpressions:
 	FindElement | FindElements
 ;
 
+// Find one element, by using $('...') expression
 FindElement:
 	"$(" selector=STRING ")" 
 ;
 
+// Find a list of elememts, by using $['...'] expression
 FindElements:
 	"$[" selector=STRING "]" 
 ;
 
+// Get an element with explicit index from a Web Element List
 ExtractElementFromList:
 	operation=ElementsListOperation "[" index=INT "]"
 ;
 
+// Two types of definitions for the elements list 
 ElementsListOperation:
 	ElementsSelectorExpr | ElementsSelectorRef
 ;
 
+// Directly use the $("...") expression to locate elements
 ElementsSelectorExpr:
 	elements=FindElements 
 ;
 
+// Refer to an existing Element List 
 ElementsSelectorRef:
 	ref=[VariableDeclaration]
 ;
 
+// Reference the Web Elements
 ElementReferences:
 	LocateElement | ElementReference | ExtractEleFromListRef
 ;
 
+// Directly use the $("...") expression to locate the element
 LocateElement:
 	element=FindElement
 ;
 
+// Cross reference to a WebElement
 ElementReference:
 	ref=[VariableDeclaration]
 ;
 
+// Use an element from an existing Web Element List
 ExtractEleFromListRef:
 	extractRef=ExtractElementFromList
 ;

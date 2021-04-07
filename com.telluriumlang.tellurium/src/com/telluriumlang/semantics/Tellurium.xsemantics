@@ -1,5 +1,68 @@
+import org.eclipse.emf.ecore.EObject
+
 import com.telluriumlang.validation.AbstractTelluriumValidator
+import com.telluriumlang.tellurium.IntLitera
+import com.telluriumlang.tellurium.StringLitera
+import com.telluriumlang.tellurium.DoubleLitera
+import com.telluriumlang.tellurium.FindElement
+import com.telluriumlang.tellurium.FindElements
+import com.telluriumlang.tellurium.ElementReference
+import com.telluriumlang.tellurium.VariableDeclaration
+import com.telluriumlang.tellurium.ExtractElementFromList
+import com.telluriumlang.tellurium.ElementsSelectorRef
 
 system com.telluriumlang.semantics.TelluriumSemantics
 
 validatorExtends AbstractTelluriumValidator
+
+judgments {
+	type |- EObject exp : output TelluriumBasicType
+		cached
+		error "cannot type " + stringRep(exp)
+	subType |- TelluriumBasicType left <: TelluriumBasicType right
+		error stringRep(left) + " is not compatible. It should be " + stringRep(right) + " or one of its sub-types."
+}
+
+axiom TIntLiteral
+	G |- IntLitera exp : TelluriumBasicType.INT
+	
+axiom TStringLitera
+	G |- StringLitera exp : TelluriumBasicType.STRING
+
+axiom TDoubleLitera
+	G |- DoubleLitera exp : TelluriumBasicType.DOUBLE
+	
+axiom TFindElement
+	G |- FindElement exp : TelluriumBasicType.WEB_ELEMENT
+	
+axiom TFindElementS
+	G |- FindElements exp : TelluriumBasicType.WEB_ELEMENT_LIST
+
+axiom TExtractElementFromList
+	G |- ExtractElementFromList exp: TelluriumBasicType.WEB_ELEMENT
+
+rule TVariableDeclaration
+	G |- VariableDeclaration exp : TelluriumBasicType t
+from {
+	empty |- exp : var TelluriumBasicType exp2Type 
+}
+
+rule NumericSubTyping
+    derives G |- TelluriumBasicType left <: TelluriumBasicType right
+from {
+	right === TelluriumBasicType.DOUBLE or left === right
+}
+
+checkrule checkElementReferenceStatement for 
+	ElementReference stmt
+from {
+	empty |- stmt.ref.value : var TelluriumBasicType referenceType
+	empty |- referenceType <: TelluriumBasicType.WEB_ELEMENT
+}
+
+checkrule checkElementsSelectorRefStatement for 
+	ElementsSelectorRef stmt
+from {
+	empty |- stmt.ref.value : var TelluriumBasicType referenceType
+	empty |- referenceType <: TelluriumBasicType.WEB_ELEMENT_LIST
+}

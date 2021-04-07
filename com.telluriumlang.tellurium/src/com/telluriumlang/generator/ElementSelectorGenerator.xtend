@@ -9,25 +9,25 @@ import com.telluriumlang.tellurium.ElementsSelectorRef
 
 class ElementSelectorGenerator {
 	
-	def dispatch static String generateDeclaration(ElementExpressions exp, TelluriumGeneratorContext ctx){
+	def dispatch static String generateDeclaration(ElementExpressions exp, String varName, TelluriumGeneratorContext ctx){
 		if(!ctx.importList.contains("org.openqa.selenium.WebElement")) {
 	    	ctx.importList.add("org.openqa.selenium.WebElement");
 	    }
 		if(exp instanceof FindElement){
-			return '''WebElement $_NAME_$ = «exp.generateSelector(ctx)»'''
+			return '''WebElement «varName» = «exp.generateSelector(ctx)»'''
 		}else{
 			 if (!ctx.importList.contains("java.util.List")) {
 		        ctx.importList.add("java.util.List");
 		    }
-		    return '''List<WebElement> $_NAME_$ = «exp.generateSelector(ctx)»'''
+		    return '''List<WebElement> «varName» = «exp.generateSelector(ctx)»'''
 		}
 	}
 	
-	def dispatch static String generateDeclaration(ExtractElementFromList efl, TelluriumGeneratorContext ctx){
+	def dispatch static String generateDeclaration(ExtractElementFromList efl, String varName, TelluriumGeneratorContext ctx){
 		if(!ctx.importList.contains("org.openqa.selenium.WebElement")) {
 	    	ctx.importList.add("org.openqa.selenium.WebElement");
 	    }
-		return '''WebElement $_NAME_$ = «efl.generateExtractor»'''
+		return '''WebElement «varName» = «efl.generateExtractor»'''
 	}
 	
 	def static String generateSelector(ElementExpressions exp, TelluriumGeneratorContext ctx){

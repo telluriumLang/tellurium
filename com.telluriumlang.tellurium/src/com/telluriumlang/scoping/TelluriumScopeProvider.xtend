@@ -3,17 +3,24 @@
  */
 package com.telluriumlang.scoping
 
+import java.util.ArrayList
+
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.IScope
 import com.telluriumlang.tellurium.TestCase
 import com.telluriumlang.tellurium.VarExpression
 import com.telluriumlang.tellurium.VariableDeclaration
+import com.telluriumlang.tellurium.OpenPage
+import com.telluriumlang.tellurium.ElementsSelectorRef
+import com.telluriumlang.tellurium.ElementReference
 
 import static org.eclipse.xtext.scoping.Scopes.*
-import org.eclipse.emf.ecore.EObject
-import java.util.ArrayList
-import com.telluriumlang.tellurium.OpenPage
+import com.telluriumlang.tellurium.KeyboardInput
+import com.telluriumlang.tellurium.MouseInput
+import com.telluriumlang.tellurium.SimpleKeyboardInput
+import com.telluriumlang.tellurium.ComplexKeyboardInput
 
 /**
  * TelluriumScopeProvider - The Scope system for Tellurium
@@ -21,7 +28,15 @@ import com.telluriumlang.tellurium.OpenPage
 class TelluriumScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def IScope scope_VarExpression_var(VarExpression varExp, EReference ref){
-		varExp.eContainer.extractScope(new AuxiliaryScopeContext(varExp))
+		varExp.eContainer.extractScope(new AuxiliaryScopeContext(varExp.eContainer))
+	}
+	
+	def IScope scope_ElementsSelectorRef_ref(ElementsSelectorRef esrf, EReference ref){
+		esrf.eContainer.extractScope(new AuxiliaryScopeContext(esrf.eContainer))
+	}
+	
+	def IScope scope_ElementReference_ref(ElementReference erf, EReference ref){
+		erf.eContainer.extractScope(new AuxiliaryScopeContext(erf.eContainer))
 	}
 	
 	def dispatch IScope extractScope(VariableDeclaration varDec, AuxiliaryScopeContext ctx){
@@ -32,14 +47,32 @@ class TelluriumScopeProvider extends AbstractDeclarativeScopeProvider {
 		varDec.eContainer.extractScope(ctx)
 	}
 	
+	def dispatch IScope extractScope(KeyboardInput ki, AuxiliaryScopeContext ctx){
+		ki.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(MouseInput mi, AuxiliaryScopeContext ctx){
+		mi.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(SimpleKeyboardInput ski,AuxiliaryScopeContext ctx){
+		ski.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(ComplexKeyboardInput cki, AuxiliaryScopeContext ctx){
+		cki.eContainer.extractScope(ctx)
+	}
+	
 	def dispatch IScope extractScope(TestCase tc, AuxiliaryScopeContext ctx){
 		var elements = new ArrayList<VariableDeclaration>()
-		var varDecIter = tc.statements.filter(VariableDeclaration)
-		for(statement: varDecIter){
-			if(statement.value == ctx.refExp){
+		for(statement: tc.statements){
+			if(statement == ctx.refExp){
 				return scopeFor(elements)
 			}
-			elements.add(statement)
+			if(statement instanceof VariableDeclaration){
+				var decStat = statement as VariableDeclaration
+				elements.add(decStat)
+			}
 		}
 		return scopeFor(elements)
 	}

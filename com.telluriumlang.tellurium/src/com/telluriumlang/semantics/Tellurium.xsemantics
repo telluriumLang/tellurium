@@ -10,6 +10,7 @@ import com.telluriumlang.tellurium.ElementReference
 import com.telluriumlang.tellurium.VariableDeclaration
 import com.telluriumlang.tellurium.ExtractElementFromList
 import com.telluriumlang.tellurium.ElementsSelectorRef
+import com.telluriumlang.tellurium.VarExpression
 
 system com.telluriumlang.semantics.TelluriumSemantics
 
@@ -18,7 +19,7 @@ validatorExtends AbstractTelluriumValidator
 judgments {
 	type |- EObject exp : output TelluriumBasicType
 		cached
-		error "cannot type " + stringRep(exp)
+		error "Cannot infer the type of " + stringRep(exp)
 	subType |- TelluriumBasicType left <: TelluriumBasicType right
 		error stringRep(left) + " is not compatible. It should be " + stringRep(right) + " or one of its sub-types."
 }
@@ -35,7 +36,7 @@ axiom TDoubleLitera
 axiom TFindElement
 	G |- FindElement exp : TelluriumBasicType.WEB_ELEMENT
 	
-axiom TFindElementS
+axiom TFindElements
 	G |- FindElements exp : TelluriumBasicType.WEB_ELEMENT_LIST
 
 axiom TExtractElementFromList
@@ -44,7 +45,13 @@ axiom TExtractElementFromList
 rule TVariableDeclaration
 	G |- VariableDeclaration exp : TelluriumBasicType t
 from {
-	empty |- exp : var TelluriumBasicType exp2Type 
+	empty |- exp.value : t
+}
+
+rule TVarExpression
+	G |- VarExpression varExp : TelluriumBasicType t
+from {
+	empty |- varExp.^var.value : t
 }
 
 rule NumericSubTyping
@@ -65,4 +72,11 @@ checkrule checkElementsSelectorRefStatement for
 from {
 	empty |- stmt.ref.value : var TelluriumBasicType referenceType
 	empty |- referenceType <: TelluriumBasicType.WEB_ELEMENT_LIST
+}
+
+checkrule checkExtractElementFromListStatement for 
+	ExtractElementFromList stmt
+from {
+	empty |- stmt.index : var TelluriumBasicType indexType
+	empty |- indexType <: TelluriumBasicType.INT
 }

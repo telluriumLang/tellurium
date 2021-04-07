@@ -35,6 +35,11 @@
 			<artifactId>asm-tree</artifactId>
 			<version>6.2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xsemantics</groupId>
+			<artifactId>org.eclipse.xsemantics.dsl</artifactId>
+			<version>${xsemanticsVersion}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

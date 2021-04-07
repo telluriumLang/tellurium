@@ -30,6 +30,12 @@ import com.telluriumlang.tellurium.IntLitera
 import com.telluriumlang.tellurium.StringLitera
 import com.telluriumlang.tellurium.Variables
 import com.telluriumlang.tellurium.VarExpression
+import com.telluriumlang.tellurium.ElementExpressions
+import com.telluriumlang.tellurium.ExtractElementFromList
+import com.telluriumlang.tellurium.ElementReferences
+import com.telluriumlang.tellurium.LocateElement
+import com.telluriumlang.tellurium.ElementReference
+import com.telluriumlang.tellurium.ExtractEleFromListRef
 
 /**
  * Generates code from the Tellurium model on save.
@@ -116,9 +122,9 @@ class TelluriumGenerator extends AbstractGenerator {
 	'''
 	
 	def dispatch String generateProgram(SimpleKeyboardInput ski, TelluriumGeneratorContext ctx)'''
-	«if(ski.target!==null){'''//target:«ski.target»'''}»
-	//.sendKeys("«ski.keySequence»");
-	new Actions(driver).sendKeys("«ski.keySequence»").build().perform();
+	«if(ski.target!==null){'''//target:«ski.target.generateProgram(ctx)»'''}»
+	//.sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx)»,«ENDIF»"«ski.keySequence»");
+	new Actions(driver).sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx)»,«ENDIF»"«ski.keySequence»").build().perform();
 	'''
 	
 	def dispatch String generateProgram(ComplexKeyboardInput cki, TelluriumGeneratorContext ctx){
@@ -126,9 +132,9 @@ class TelluriumGenerator extends AbstractGenerator {
 			ctx.importList+="org.openqa.selenium.Keys"
 		}
 	'''
-	«if(cki.target!==null){'''//target:«cki.target»'''}»
-	//.keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys("«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»);
-	new Actions(driver).keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys("«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).build().perform();
+	«if(cki.target!==null){'''//target:«cki.target.generateProgram(ctx)»'''}»
+	//.keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx)»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»);
+	new Actions(driver).keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx)»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).build().perform();
 	'''
 	}
 	
@@ -144,8 +150,8 @@ class TelluriumGenerator extends AbstractGenerator {
 	}
 	
 	def dispatch String generateProgram(MouseInput mi, TelluriumGeneratorContext ctx)'''
-	«if(mi.target!==null){'''//target:«mi.target»'''}»
-	new Actions(driver).«mi.MAction.interpretMouseAction»().build().perform();
+	«if(mi.target!==null){'''//target:«mi.target.generateProgram(ctx)»'''}»
+	new Actions(driver).«mi.MAction.interpretMouseAction»(«IF mi.target!==null»«mi.target.generateProgram(ctx)»«ENDIF»).build().perform();
 	'''
 	
 	
@@ -185,10 +191,16 @@ class TelluriumGenerator extends AbstractGenerator {
 	'''
 	
 	def dispatch String generateProgram(VariableDeclaration vd, TelluriumGeneratorContext ctx)'''
-	«vd.value.inferType» «vd.name» = «vd.value.generateProgram(ctx)»;
+	«IF vd.value instanceof ElementExpressions»
+	«ElementSelectorGenerator.generateDeclaration(vd.value as ElementExpressions, ctx).replace("$_NAME_$",vd.name)»;
+	«ELSEIF vd.value instanceof ExtractElementFromList»
+	«ElementSelectorGenerator.generateDeclaration(vd.value as ExtractElementFromList, ctx).replace("$_NAME_$",vd.name)»;
+	«ELSE»
+	«vd.value.inferType(ctx)» «vd.name» = «vd.value.generateProgram(ctx)»;
+	«ENDIF»
 	'''
 	
-	def String inferType(Variables vars){
+	def String inferType(Variables vars, TelluriumGeneratorContext ctx){
 		if(vars instanceof DoubleLitera){
 			return "double"
 		}else if(vars instanceof IntLitera){
@@ -196,11 +208,11 @@ class TelluriumGenerator extends AbstractGenerator {
 		}else if(vars instanceof StringLitera){
 			return "String"
 		}else if(vars instanceof VarExpression){
-			return (vars as VarExpression).^var.value.inferType
+			return (vars as VarExpression).^var.value.inferType(ctx)
 		}
 		return "Object"
 	}
-	
+		
 	def dispatch String generateProgram(Variables vars, TelluriumGeneratorContext ctx)''''''
 	
 	def dispatch String generateProgram(DoubleLitera fl, TelluriumGeneratorContext ctx)'''«fl.^val»'''
@@ -210,5 +222,18 @@ class TelluriumGenerator extends AbstractGenerator {
 	def dispatch String generateProgram(StringLitera sl, TelluriumGeneratorContext ctx)'''"«sl.^val»"'''
 	
 	def dispatch String generateProgram(VarExpression sl, TelluriumGeneratorContext ctx)'''«sl.^var.name»'''
+	
+	def dispatch String generateProgram(ElementExpressions exp, TelluriumGeneratorContext ctx)'''
+	«ElementSelectorGenerator.generateDeclaration(exp,ctx)»
+	'''
+	
+	def dispatch String generateProgram(ElementReferences exp, TelluriumGeneratorContext ctx)''''''
+	
+	def dispatch String generateProgram(LocateElement exp, TelluriumGeneratorContext ctx)'''«ElementSelectorGenerator.generateSelector(exp.element, ctx)»'''
+	
+	def dispatch String generateProgram(ElementReference exp, TelluriumGeneratorContext ctx)'''«exp.ref.name»'''
+	
+	def dispatch String generateProgram(ExtractEleFromListRef efr, TelluriumGeneratorContext ctx)'''«ElementSelectorGenerator.generateExtractor(efr.extractRef)»'''
+	
 }
 

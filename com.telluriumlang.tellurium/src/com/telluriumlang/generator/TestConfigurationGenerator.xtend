@@ -35,7 +35,6 @@ class TestConfigurationGenerator {
 	
 	def String getDriverName(DriverType type,TelluriumGeneratorContext ctx){
 		definedDriver = true;
-		System.out.println(ctx.importList);
 		if(type == DriverType.CHROME){
 			ctx.importList.add("org.openqa.selenium.chrome.ChromeDriver");
 			return "ChromeDriver()";

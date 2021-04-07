@@ -57,7 +57,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="KeyboardInput" eSuperTypes="#//TestStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="keySequence" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ElementReferences"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SimpleKeyboardInput" eSuperTypes="#//KeyboardInput"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComplexKeyboardInput" eSuperTypes="#//KeyboardInput">
@@ -72,7 +73,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MouseInput" eSuperTypes="#//TestStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="mAction" eType="#//MouseAction"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ElementReferences"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MouseAction">
     <eLiterals name="click" literal="click"/>
@@ -109,5 +111,35 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VarExpression" eSuperTypes="#//Variables">
     <eStructuralFeatures xsi:type="ecore:EReference" name="var" eType="#//VariableDeclaration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementExpressions" eSuperTypes="#//Variables">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="selector" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FindElement" eSuperTypes="#//ElementExpressions"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FindElements" eSuperTypes="#//ElementExpressions"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExtractElementFromList" eSuperTypes="#//Variables">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operation" eType="#//ElementsListOperation"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementsListOperation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementsSelectorExpr" eSuperTypes="#//ElementsListOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" eType="#//FindElements"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementsSelectorRef" eSuperTypes="#//ElementsListOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//VariableDeclaration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementReferences"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LocateElement" eSuperTypes="#//ElementReferences">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="#//FindElement"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementReference" eSuperTypes="#//ElementReferences">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//VariableDeclaration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExtractEleFromListRef" eSuperTypes="#//ElementReferences">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extractRef" eType="#//ExtractElementFromList"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

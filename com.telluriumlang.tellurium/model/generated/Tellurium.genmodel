@@ -71,7 +71,7 @@
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//KeyboardInput">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//KeyboardInput/keySequence"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//KeyboardInput/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//KeyboardInput/target"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//SimpleKeyboardInput"/>
     <genClasses ecoreClass="Tellurium.ecore#//ComplexKeyboardInput">
@@ -79,7 +79,7 @@
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//MouseInput">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//MouseInput/mAction"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//MouseInput/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//MouseInput/target"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//Cookie">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//Cookie/action"/>
@@ -107,6 +107,32 @@
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//VarExpression">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Tellurium.ecore#//VarExpression/var"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//ElementExpressions">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//ElementExpressions/selector"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//FindElement"/>
+    <genClasses ecoreClass="Tellurium.ecore#//FindElements"/>
+    <genClasses ecoreClass="Tellurium.ecore#//ExtractElementFromList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//ExtractElementFromList/operation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//ExtractElementFromList/index"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//ElementsListOperation"/>
+    <genClasses ecoreClass="Tellurium.ecore#//ElementsSelectorExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//ElementsSelectorExpr/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//ElementsSelectorRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Tellurium.ecore#//ElementsSelectorRef/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//ElementReferences"/>
+    <genClasses ecoreClass="Tellurium.ecore#//LocateElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//LocateElement/element"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//ElementReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Tellurium.ecore#//ElementReference/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//ExtractEleFromListRef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//ExtractEleFromListRef/extractRef"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -67,11 +67,11 @@ KeyboardInput :
 ;
 
 SimpleKeyboardInput :
-	'enter' keySequence = STRING ( 'into' target = STRING )? //TODO:change target to cross reference
+	'enter' keySequence = STRING ( 'into' target = ElementReferences )? //TODO:change target to cross reference
 ;
 
 ComplexKeyboardInput :
-	'enter' modifier = ModifierKey "+" keySequence = STRING ( 'into' target = STRING )? //TODO:change target to cross reference
+	'enter' modifier = ModifierKey "+" keySequence = STRING ( 'into' target = ElementReferences )? //TODO:change target to cross reference
 ;
 
 enum ModifierKey :
@@ -79,7 +79,7 @@ enum ModifierKey :
 ;
 
 MouseInput :
-	'mouse' mAction = MouseAction ( 'on' target = STRING )? //TODO:change target to cross reference
+	'mouse' mAction = MouseAction ( 'on' target = ElementReferences )? //TODO:change target to cross reference
 ;
 
 enum MouseAction :
@@ -107,7 +107,8 @@ VariableDeclaration:
 ;
 
 Variables:
-	DoubleLitera | IntLitera | StringLitera | VarExpression
+	DoubleLitera | IntLitera | StringLitera | VarExpression | 
+	ElementExpressions | ExtractElementFromList
 ;
 
 DoubleLitera:
@@ -128,4 +129,48 @@ VarExpression:
 
 Double returns ecore::EDouble hidden():
 	INT? "." INT
+;
+
+ElementExpressions:
+	FindElement | FindElements
+;
+
+FindElement:
+	"$(" selector=STRING ")" 
+;
+
+FindElements:
+	"$[" selector=STRING "]" 
+;
+
+ExtractElementFromList:
+	operation=ElementsListOperation "[" index=INT "]"
+;
+
+ElementsListOperation:
+	ElementsSelectorExpr | ElementsSelectorRef
+;
+
+ElementsSelectorExpr:
+	elements=FindElements 
+;
+
+ElementsSelectorRef:
+	ref=[VariableDeclaration]
+;
+
+ElementReferences:
+	LocateElement | ElementReference | ExtractEleFromListRef
+;
+
+LocateElement:
+	element=FindElement
+;
+
+ElementReference:
+	ref=[VariableDeclaration]
+;
+
+ExtractEleFromListRef:
+	extractRef=ExtractElementFromList
 ;

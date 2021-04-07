@@ -37,7 +37,7 @@ class ElementSelectorGenerator {
 	    return exp.doGenerate
 	}
 	
-	def static String generateExtractor(ExtractElementFromList efl)'''«efl.operation.doGenerate».get(«efl.index»)'''
+	def static String generateExtractor(ExtractElementFromList efl)'''«efl.operation.doGenerate»'''
 	
 	def static dispatch String doGenerate(FindElement exp)'''driver.findElement(«exp.selector.inferSelector»)'''
 	

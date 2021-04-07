@@ -21,6 +21,7 @@ import com.telluriumlang.tellurium.KeyboardInput
 import com.telluriumlang.tellurium.MouseInput
 import com.telluriumlang.tellurium.SimpleKeyboardInput
 import com.telluriumlang.tellurium.ComplexKeyboardInput
+import com.telluriumlang.tellurium.ExtractElementFromList
 
 /**
  * TelluriumScopeProvider - The Scope system for Tellurium
@@ -28,7 +29,11 @@ import com.telluriumlang.tellurium.ComplexKeyboardInput
 class TelluriumScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def IScope scope_VarExpression_var(VarExpression varExp, EReference ref){
-		varExp.eContainer.extractScope(new AuxiliaryScopeContext(varExp.eContainer))
+		var topStatement = varExp as EObject
+		while(!(topStatement.eContainer instanceof TestCase)){
+			topStatement = topStatement.eContainer
+		}
+		varExp.eContainer.extractScope(new AuxiliaryScopeContext(topStatement))
 	}
 	
 	def IScope scope_ElementsSelectorRef_ref(ElementsSelectorRef esrf, EReference ref){
@@ -61,6 +66,10 @@ class TelluriumScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def dispatch IScope extractScope(ComplexKeyboardInput cki, AuxiliaryScopeContext ctx){
 		cki.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(ExtractElementFromList varDec, AuxiliaryScopeContext ctx){
+		varDec.eContainer.extractScope(ctx)
 	}
 	
 	def dispatch IScope extractScope(TestCase tc, AuxiliaryScopeContext ctx){

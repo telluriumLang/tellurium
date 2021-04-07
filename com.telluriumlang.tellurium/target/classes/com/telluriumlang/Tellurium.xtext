@@ -67,11 +67,11 @@ KeyboardInput :
 ;
 
 SimpleKeyboardInput :
-	'enter' keySequence = STRING ( 'into' target = ElementReferences )? //TODO:change target to cross reference
+	'enter' keySequence = STRING ( 'into' target = ElementReferences )?
 ;
 
 ComplexKeyboardInput :
-	'enter' modifier = ModifierKey "+" keySequence = STRING ( 'into' target = ElementReferences )? //TODO:change target to cross reference
+	'enter' modifier = ModifierKey "+" keySequence = STRING ( 'into' target = ElementReferences )?
 ;
 
 enum ModifierKey :
@@ -79,7 +79,7 @@ enum ModifierKey :
 ;
 
 MouseInput :
-	'mouse' mAction = MouseAction ( 'on' target = ElementReferences )? //TODO:change target to cross reference
+	'mouse' mAction = MouseAction ( 'on' target = ElementReferences )?
 ;
 
 enum MouseAction :
@@ -147,7 +147,7 @@ FindElements:
 
 // Get an element with explicit index from a Web Element List
 ExtractElementFromList:
-	operation=ElementsListOperation "[" index=INT "]"
+	operation=ElementsListOperation "[" index=Variables "]"
 ;
 
 // Two types of definitions for the elements list 

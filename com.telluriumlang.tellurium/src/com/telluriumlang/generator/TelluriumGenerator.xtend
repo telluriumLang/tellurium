@@ -122,9 +122,9 @@ class TelluriumGenerator extends AbstractGenerator {
 	'''
 	
 	def dispatch String generateProgram(SimpleKeyboardInput ski, TelluriumGeneratorContext ctx)'''
-	«if(ski.target!==null){'''//target:«ski.target.generateProgram(ctx)»'''}»
-	//.sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx)»,«ENDIF»"«ski.keySequence»");
-	new Actions(driver).sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx)»,«ENDIF»"«ski.keySequence»").build().perform();
+	«if(ski.target!==null){'''//target:«ski.target.generateProgram(ctx).trim»'''}»
+	//.sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx).trim»,«ENDIF»"«ski.keySequence»");
+	new Actions(driver).sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx).trim»,«ENDIF»"«ski.keySequence»").build().perform();
 	'''
 	
 	def dispatch String generateProgram(ComplexKeyboardInput cki, TelluriumGeneratorContext ctx){
@@ -132,9 +132,9 @@ class TelluriumGenerator extends AbstractGenerator {
 			ctx.importList+="org.openqa.selenium.Keys"
 		}
 	'''
-	«if(cki.target!==null){'''//target:«cki.target.generateProgram(ctx)»'''}»
-	//.keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx)»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»);
-	new Actions(driver).keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx)»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).build().perform();
+	«if(cki.target!==null){'''//target:«cki.target.generateProgram(ctx).trim»'''}»
+	//.keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx).trim»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»);
+	new Actions(driver).keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx).trim»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).build().perform();
 	'''
 	}
 	
@@ -150,8 +150,8 @@ class TelluriumGenerator extends AbstractGenerator {
 	}
 	
 	def dispatch String generateProgram(MouseInput mi, TelluriumGeneratorContext ctx)'''
-	«if(mi.target!==null){'''//target:«mi.target.generateProgram(ctx)»'''}»
-	new Actions(driver).«mi.MAction.interpretMouseAction»(«IF mi.target!==null»«mi.target.generateProgram(ctx)»«ENDIF»).build().perform();
+	«if(mi.target!==null){'''//target:«mi.target.generateProgram(ctx).trim»'''}»
+	new Actions(driver).«mi.MAction.interpretMouseAction»(«IF mi.target!==null»«mi.target.generateProgram(ctx).trim»«ENDIF»).build().perform();
 	'''
 	
 	
@@ -225,11 +225,15 @@ class TelluriumGenerator extends AbstractGenerator {
 	
 	def dispatch String generateProgram(ElementReferences exp, TelluriumGeneratorContext ctx)''''''
 	
-	def dispatch String generateProgram(LocateElement exp, TelluriumGeneratorContext ctx)'''«ElementSelectorGenerator.generateSelector(exp.element, ctx)»'''
+	def dispatch String generateProgram(LocateElement exp, TelluriumGeneratorContext ctx)'''
+	«ElementSelectorGenerator.generateSelector(exp.element, ctx)»
+	'''
 	
 	def dispatch String generateProgram(ElementReference exp, TelluriumGeneratorContext ctx)'''«exp.ref.name»'''
 	
-	def dispatch String generateProgram(ExtractEleFromListRef efr, TelluriumGeneratorContext ctx)'''«ElementSelectorGenerator.generateExtractor(efr.extractRef)»'''
+	def dispatch String generateProgram(ExtractEleFromListRef efr, TelluriumGeneratorContext ctx)'''
+	«ElementSelectorGenerator.generateExtractor(efr.extractRef)».get(«efr.extractRef.index.generateProgram(ctx)»)
+	'''
 	
 }
 

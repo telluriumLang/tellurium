@@ -115,7 +115,7 @@
     <genClasses ecoreClass="Tellurium.ecore#//FindElements"/>
     <genClasses ecoreClass="Tellurium.ecore#//ExtractElementFromList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//ExtractElementFromList/operation"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//ExtractElementFromList/index"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//ExtractElementFromList/index"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//ElementsListOperation"/>
     <genClasses ecoreClass="Tellurium.ecore#//ElementsSelectorExpr">

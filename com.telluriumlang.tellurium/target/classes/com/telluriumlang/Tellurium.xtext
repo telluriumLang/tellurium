@@ -147,7 +147,7 @@ FindElements:
 
 // Get an element with explicit index from a Web Element List
 ExtractElementFromList:
-	operation=ElementsListOperation "[" index=Variables "]"
+	operation=ElementsListOperation "[" index=(IntLitera | VarExpression) "]"
 ;
 
 // Two types of definitions for the elements list 

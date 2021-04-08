@@ -12,7 +12,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<!-- Tycho settings -->
-		<tycho-version>1.2.0</tycho-version>
+		<tycho-version>1.3.0</tycho-version>
 		<!-- XSemantics Settings -->
 		<xsemanticsVersion>1.15.0-SNAPSHOT</xsemanticsVersion>
 		<!-- Define overridable properties for tycho-surefire-plugin -->
@@ -31,7 +31,6 @@
 		<module>com.telluriumlang.tellurium.repository</module>
 		<module>com.telluriumlang.tellurium.tests</module>
 		<module>com.telluriumlang.tellurium.ui.tests</module>
-		<module>com.telluriumlang.tellurium.updatesite</module>
 	</modules>
 	<build>
 		<plugins>

@@ -10,6 +10,35 @@
 	<packaging>eclipse-repository</packaging>
 
 	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.tools.tycho-plugins</groupId>
+				<artifactId>repository-utils</artifactId>
+				<version>0.19.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>generate-facade</id>
+						<phase>package</phase>
+						<goals>
+							<goal>generate-repository-facade</goal>
+						</goals>
+						<configuration>
+							<associateSites>
+								<site>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.15.0/</site>
+								<site>http://download.eclipse.org/xsemantics/milestones/1.15/</site>
+							</associateSites>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-packaging-plugin</artifactId>
+						<version>${tycho-version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -48,4 +77,17 @@
 
 	<dependencies>
 	</dependencies>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jboss-public-repository-group</id>
+		    <name>JBoss Public Repository Group</name>
+		    <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</pluginRepository>
+		<pluginRepository>
+		    <id>jboss-snapshots-repository</id>
+		    <name>JBoss Snapshots Repository</name>
+		    <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>

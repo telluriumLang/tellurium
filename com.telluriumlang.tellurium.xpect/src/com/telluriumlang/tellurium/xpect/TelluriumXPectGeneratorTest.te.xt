@@ -1,0 +1,81 @@
+/* XPECT_SETUP com.telluriumlang.tellurium.xpect.TelluriumXPectGeneratorTest END_SETUP */
+
+/**
+XPECT generated file com/telluriumlang/tellurium/xpect/TelluriumXPectGeneratorTestxt.java ---
+package com.telluriumlang.tellurium.xpect;
+
+import java.util.concurrent.TimeUnit;
+   
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import java.util.List;
+
+public class TelluriumXPectGeneratorTestxt {
+	
+	
+	private static WebDriver driver;
+	
+	@Before
+	public void setup() {
+		if(driver == null){
+			driver = new ChromeDriver();
+		}
+		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	
+	@Test
+	public void selectorTest() {
+		WebElement selectByID = driver.findElement(By.id("id"));
+		WebElement selectByClass = driver.findElement(By.className("class"));
+		WebElement selectByTagName = driver.findElement(By.tagName("name"));
+		WebElement selectByCssSelector = driver.findElement(By.cssSelector("#id > li"));
+		WebElement selectByXpath = driver.findElement(By.xpath("/html"));
+		WebElement selectByName = driver.findElement(By.name("name"));
+	}
+	
+	@Test
+	public void variableTest() {
+		int vInt = 1;
+		double vDouble = 2.2;
+		String vStr = "Helloworld";
+		WebElement element = driver.findElement(By.tagName("a"));
+		List<WebElement> elements = driver.findElements(By.tagName("s"));
+		WebElement childElement = driver.findElements(By.tagName("s")).get(0);
+		WebElement childElement2 = elements.get(1);
+		WebElement childElement3 = elements.get(vInt);
+	}
+
+}
+   ---
+*/
+
+using Chrome driver;
+driver implicitly wait 10s;
+
+test selectorTest {
+	let selectByID = $("#id")
+	let selectByClass = $(".class")
+	let selectByTagName = $("name")
+	let selectByCssSelector = $("#id > li")
+	let selectByXpath = $("/html")
+	let selectByName = $("name='name'")
+}
+
+test variableTest {
+	let vInt = 1
+	let vDouble = 2.2
+	let vStr = "Helloworld"
+	let element = $("a")
+	let elements = $['s']
+	let childElement = $['s'][0]
+	let childElement2 = elements[1]
+	let childElement3 = elements[vInt]
+}

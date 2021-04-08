@@ -9,7 +9,7 @@ import com.telluriumlang.tellurium.ElementsSelectorRef
 
 class ElementSelectorGenerator {
 	
-	def dispatch static String generateDeclaration(ElementExpressions exp, String varName, TelluriumGeneratorContext ctx){
+	def static String generateDeclaration(ElementExpressions exp, String varName, TelluriumGeneratorContext ctx){
 		if(!ctx.importList.contains("org.openqa.selenium.WebElement")) {
 	    	ctx.importList.add("org.openqa.selenium.WebElement");
 	    }
@@ -23,11 +23,11 @@ class ElementSelectorGenerator {
 		}
 	}
 	
-	def dispatch static String generateDeclaration(ExtractElementFromList efl, String varName, TelluriumGeneratorContext ctx){
+	def static String generateDeclaration(ExtractElementFromList efl, String varName, String index, TelluriumGeneratorContext ctx){
 		if(!ctx.importList.contains("org.openqa.selenium.WebElement")) {
 	    	ctx.importList.add("org.openqa.selenium.WebElement");
 	    }
-		return '''WebElement «varName» = «efl.generateExtractor»'''
+		return '''WebElement «varName» = «efl.generateExtractor».get(«index»)'''
 	}
 	
 	def static String generateSelector(ElementExpressions exp, TelluriumGeneratorContext ctx){

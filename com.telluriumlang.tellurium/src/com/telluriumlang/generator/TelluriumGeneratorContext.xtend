@@ -26,7 +26,11 @@ class TelluriumGeneratorContext {
 	var String packageName;
 	
 	def void setClassName(String className){
-		this.className = className;
+		var goodClassName = className;
+		if(goodClassName !== null){
+			goodClassName = className.replaceAll("\\.","")
+		}
+		this.className = goodClassName;
 	}
 	
 	def String getClassName(){

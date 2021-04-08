@@ -57,7 +57,8 @@ class TelluriumGenerator extends AbstractGenerator {
 			}
 			var sourecode = model.generateProgram(ctx);
 			var importCode = generateImportCode(model,ctx);
-			fsa.generateFile(filePath,packageName + BLANK_LINE + importCode + BLANK_LINE + sourecode + BLANK_LINE);
+			var finalCode = packageName + BLANK_LINE + importCode + BLANK_LINE + sourecode + BLANK_LINE;
+			fsa.generateFile(filePath,finalCode.trim);
 		}catch(Exception ex){
 			ex.printStackTrace
 		}
@@ -195,7 +196,7 @@ class TelluriumGenerator extends AbstractGenerator {
 	«IF vd.value instanceof ElementExpressions»
 	«ElementSelectorGenerator.generateDeclaration(vd.value as ElementExpressions, vd.name, ctx)»;
 	«ELSEIF vd.value instanceof ExtractElementFromList»
-	«ElementSelectorGenerator.generateDeclaration(vd.value as ExtractElementFromList, vd.name, ctx)»;
+	«ElementSelectorGenerator.generateDeclaration(vd.value as ExtractElementFromList, vd.name, (vd.value as ExtractElementFromList).index.generateProgram(ctx), ctx)»;
 	«ELSE»
 	«vd.value.inferType(ctx)» «vd.name» = «vd.value.generateProgram(ctx)»;
 	«ENDIF»

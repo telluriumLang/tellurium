@@ -31,7 +31,7 @@ TestCase:
 
 TestStatement:
 	OpenPage | Navigate | Window | QuitAndClose | KeyboardInput | MouseInput | Cookie | 
-	VariableDeclaration
+	VariableDeclaration | AssertStatement
 ;
 
 OpenPage:
@@ -184,3 +184,41 @@ ElementReference:
 ExtractEleFromListRef:
 	extractRef=ExtractElementFromList
 ;
+
+AssertStatement:
+	'assert' ( AssertTrue | AssertFalse | AssertNull | AssertNotNull
+		| AssertEquals | AssertNotEquals | AssertIn | AssertNotIn ) ( 'with' 'message' message=STRING )?
+;
+
+AssertTrue:
+	actual = Variables 'is' 'true'
+;
+
+AssertFalse:
+	actual = Variables 'is' 'false'
+;
+
+AssertNull:
+	actual = Variables 'is' 'null'
+;
+
+AssertNotNull:
+	actual = Variables 'not' 'null'
+;
+
+AssertEquals:
+	actual = Variables '==' expected = Variables
+;
+
+AssertNotEquals:
+	actual = Variables '!=' unexpected = Variables
+;
+
+AssertIn:
+	needle = Variables 'in' hayStack = Variables
+;
+
+AssertNotIn:
+	needle = Variables 'not' 'in' hayStack = Variables
+;
+

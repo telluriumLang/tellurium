@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Tellurium - A DSL for automation testing" modelDirectory="/com.telluriumlang.tellurium/src-gen"
     modelPluginID="com.telluriumlang.tellurium" forceOverwrite="true" modelName="Tellurium"
     updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.24">
+    complianceLevel="8.0" copyrightFields="false" runtimeVersion="2.24">
   <genPackages prefix="Tellurium" basePackage="com.telluriumlang" disposableProviderFactory="true"
       fileExtensions="te" ecorePackage="Tellurium.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//DriverType">
@@ -133,6 +133,37 @@
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//ExtractEleFromListRef">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//ExtractEleFromListRef/extractRef"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//AssertStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//AssertStatement/message"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//AssertTrue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertTrue/actual"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//AssertFalse">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertFalse/actual"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//AssertNull">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertNull/actual"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//AssertNotNull">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertNotNull/actual"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//AssertEquals">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertEquals/actual"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertEquals/expected"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//AssertNotEquals">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertNotEquals/actual"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertNotEquals/unexpected"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//AssertIn">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertIn/needle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertIn/hayStack"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//AssertNotIn">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertNotIn/needle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//AssertNotIn/hayStack"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

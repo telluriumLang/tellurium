@@ -143,4 +143,47 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="extractRef" eType="#//ExtractElementFromList"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertStatement" eSuperTypes="#//TestStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertTrue" eSuperTypes="#//AssertStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" eType="#//Variables"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertFalse" eSuperTypes="#//AssertStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" eType="#//Variables"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertNull" eSuperTypes="#//AssertStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" eType="#//Variables"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertNotNull" eSuperTypes="#//AssertStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" eType="#//Variables"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertEquals" eSuperTypes="#//AssertStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" eType="#//Variables"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expected" eType="#//Variables"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertNotEquals" eSuperTypes="#//AssertStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actual" eType="#//Variables"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unexpected" eType="#//Variables"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertIn" eSuperTypes="#//AssertStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="needle" eType="#//Variables"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hayStack" eType="#//Variables"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssertNotIn" eSuperTypes="#//AssertStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="needle" eType="#//Variables"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hayStack" eType="#//Variables"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

@@ -36,6 +36,7 @@ import com.telluriumlang.tellurium.ElementReferences
 import com.telluriumlang.tellurium.LocateElement
 import com.telluriumlang.tellurium.ElementReference
 import com.telluriumlang.tellurium.ExtractEleFromListRef
+import com.telluriumlang.tellurium.AssertStatement
 
 /**
  * Generates code from the Tellurium model on save.
@@ -234,6 +235,10 @@ class TelluriumGenerator extends AbstractGenerator {
 	def dispatch String generateProgram(ExtractEleFromListRef efr, TelluriumGeneratorContext ctx)'''
 	«ElementSelectorGenerator.generateExtractor(efr.extractRef)».get(«efr.extractRef.index.generateProgram(ctx)»)
 	'''
+	
+	def dispatch String generateProgram(AssertStatement assert, TelluriumGeneratorContext ctx){
+		AssertionGenerator.generateAssertion(assert,ctx,this)
+	}
 	
 }
 

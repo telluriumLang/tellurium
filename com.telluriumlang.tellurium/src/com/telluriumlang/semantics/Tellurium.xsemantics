@@ -11,6 +11,10 @@ import com.telluriumlang.tellurium.VariableDeclaration
 import com.telluriumlang.tellurium.ExtractElementFromList
 import com.telluriumlang.tellurium.ElementsSelectorRef
 import com.telluriumlang.tellurium.VarExpression
+import com.telluriumlang.tellurium.AssertTrue
+import com.telluriumlang.tellurium.AssertFalse
+import com.telluriumlang.tellurium.AssertIn
+import com.telluriumlang.tellurium.AssertNotIn
 
 system com.telluriumlang.semantics.TelluriumSemantics
 
@@ -79,4 +83,36 @@ checkrule checkExtractElementFromListStatement for
 from {
 	empty |- stmt.index : var TelluriumBasicType indexType
 	empty |- indexType <: TelluriumBasicType.INT
+}
+
+checkrule checkAssertTrueStatement for
+	AssertTrue stmt
+from {
+	empty |- stmt.actual : var TelluriumBasicType actualType
+	empty |- actualType <: TelluriumBasicType.BOOLEAN
+}
+
+checkrule checkAssertFalseStatement for
+	AssertFalse stmt
+from {
+	empty |- stmt.actual : var TelluriumBasicType actualType
+	empty |- actualType <: TelluriumBasicType.BOOLEAN
+}
+
+checkrule checkAssertInStatement for
+	AssertIn stmt
+from {
+	empty |- stmt.needle : var TelluriumBasicType needleType
+	empty |- needleType <: TelluriumBasicType.WEB_ELEMENT
+	empty |- stmt.hayStack : var TelluriumBasicType hayStackType
+	empty |- hayStackType <: TelluriumBasicType.WEB_ELEMENT_LIST
+}
+
+checkrule checkAssertNotInStatement for
+	AssertNotIn stmt
+from {
+	empty |- stmt.needle : var TelluriumBasicType needleType
+	empty |- needleType <: TelluriumBasicType.WEB_ELEMENT
+	empty |- stmt.hayStack : var TelluriumBasicType hayStackType
+	empty |- hayStackType <: TelluriumBasicType.WEB_ELEMENT_LIST
 }

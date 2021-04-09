@@ -1,6 +1,7 @@
 package com.telluriumlang.semantics
 
 enum TelluriumBasicType {
+	BOOLEAN,
 	INT,
 	DOUBLE,
 	STRING,

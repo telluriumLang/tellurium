@@ -36,11 +36,11 @@ class AssertionGenerator {
 	'''
 	
 	def static dispatch String doGenerate(AssertEquals ae, String message, TelluriumGeneratorContext ctx, TelluriumGenerator gen)'''
-	Assert.assertEquals(«message»«gen.generateProgram(ae.actual,ctx)»,«gen.generateProgram(ae.actual,ctx)»);
+	Assert.assertEquals(«message»«gen.generateProgram(ae.expected,ctx)»,«gen.generateProgram(ae.actual,ctx)»);
 	'''
 	
 	def static dispatch String doGenerate(AssertNotEquals ane, String message, TelluriumGeneratorContext ctx, TelluriumGenerator gen)'''
-	Assert.assertNotEquals(«message»«gen.generateProgram(ane.actual,ctx)»,«gen.generateProgram(ane.actual,ctx)»);
+	Assert.assertNotEquals(«message»«gen.generateProgram(ane.unexpected,ctx)»,«gen.generateProgram(ane.actual,ctx)»);
 	'''
 	
 	def static dispatch String doGenerate(AssertIn ai, String message, TelluriumGeneratorContext ctx, TelluriumGenerator gen)'''

@@ -128,6 +128,35 @@
 				</executions>
 			</plugin>
 			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                	<assembleDirectory>${project.build.directory}/extensions</assembleDirectory>
+                    <repositoryLayout>flat</repositoryLayout>
+                    <useWildcardClassPath>true</useWildcardClassPath>
+                    <configurationDirectory>conf</configurationDirectory>
+                    <copyConfigurationDirectory>true</copyConfigurationDirectory>
+                    <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+                    <repositoryName>lib</repositoryName>
+                    <extraJvmArguments>-Xmx1024m -Dfile.encoding=utf-8</extraJvmArguments>
+                    <programs>
+                        <program>
+                            <id>main</id>
+                            <mainClass>org.eclipse.xtext.ide.server.ServerLauncher</mainClass>
+                        	<name>main</name>
+                    	</program>
+                	</programs>
+            	</configuration>
+            </plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.0.0</version>

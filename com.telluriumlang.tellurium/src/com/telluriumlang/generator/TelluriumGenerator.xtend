@@ -12,7 +12,6 @@ import com.telluriumlang.tellurium.TestCase
 import com.telluriumlang.tellurium.DriverImplicityWait
 import com.telluriumlang.tellurium.SimpleKeyboardInput
 import com.telluriumlang.tellurium.ComplexKeyboardInput
-import com.telluriumlang.tellurium.KeyboardInput
 import com.telluriumlang.tellurium.ModifierKey
 import com.telluriumlang.tellurium.MouseAction
 import com.telluriumlang.tellurium.MouseInput
@@ -37,6 +36,8 @@ import com.telluriumlang.tellurium.LocateElement
 import com.telluriumlang.tellurium.ElementReference
 import com.telluriumlang.tellurium.ExtractEleFromListRef
 import com.telluriumlang.tellurium.AssertStatement
+import com.telluriumlang.tellurium.FindElements
+import com.telluriumlang.tellurium.FindElement
 
 /**
  * Generates code from the Tellurium model on save.
@@ -215,7 +216,14 @@ class TelluriumGenerator extends AbstractGenerator {
 		return "Object"
 	}
 		
-	def dispatch String generateProgram(Variables vars, TelluriumGeneratorContext ctx)''''''
+	def dispatch String generateProgram(FindElement fe, TelluriumGeneratorContext ctx)
+	'''«ElementSelectorGenerator.generateSelector(fe,ctx)»'''
+	
+	def dispatch String generateProgram(FindElements fes, TelluriumGeneratorContext ctx)
+	'''«ElementSelectorGenerator.generateSelector(fes,ctx)»'''
+	
+	def dispatch String generateProgram(ExtractElementFromList eefl, TelluriumGeneratorContext ctx)
+	'''«ElementSelectorGenerator.generateExtractor(eefl)».get(«eefl.index.generateProgram(ctx)»)'''
 	
 	def dispatch String generateProgram(DoubleLitera fl, TelluriumGeneratorContext ctx)'''«fl.^val»'''
 	

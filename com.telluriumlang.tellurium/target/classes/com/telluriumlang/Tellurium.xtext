@@ -79,11 +79,19 @@ enum ModifierKey :
 ;
 
 MouseInput :
-	'mouse' mAction = MouseAction ( 'on' target = ElementReferences )?
+	'mouse' ( SimpleMouseInput | MouseMove )
+;
+
+SimpleMouseInput :
+	 mAction = MouseAction ( 'on' target = ElementReferences )?
 ;
 
 enum MouseAction :
 	click | doubleClick | clickAndHold | rightClick | release
+;
+
+MouseMove :
+	{MouseMove} 'move' ( 'to' target = ElementReferences )? ( 'by' '(' xOffset = ( IntLitera | VarExpression ) ',' yOffset = ( IntLitera | VarExpression ) ')' )?
 ;
 
 Cookie :

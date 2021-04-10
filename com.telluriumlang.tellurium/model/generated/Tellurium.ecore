@@ -72,9 +72,11 @@
     <eLiterals name="win" value="4" literal="win"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MouseInput" eSuperTypes="#//TestStatement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mAction" eType="#//MouseAction"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ElementReferences"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleMouseInput" eSuperTypes="#//MouseInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mAction" eType="#//MouseAction"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MouseAction">
     <eLiterals name="click" literal="click"/>
@@ -82,6 +84,12 @@
     <eLiterals name="clickAndHold" value="2" literal="clickAndHold"/>
     <eLiterals name="rightClick" value="3" literal="rightClick"/>
     <eLiterals name="release" value="4" literal="release"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MouseMove" eSuperTypes="#//MouseInput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xOffset" eType="#//Variables"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="yOffset" eType="#//Variables"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cookie" eSuperTypes="#//TestStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="#//CookieAction"

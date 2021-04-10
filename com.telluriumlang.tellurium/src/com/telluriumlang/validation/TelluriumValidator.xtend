@@ -10,6 +10,7 @@ import com.telluriumlang.tellurium.TelluriumPackage
 import com.telluriumlang.semantics.validation.TelluriumSemanticsValidator
 import com.telluriumlang.tellurium.GetInfoStatement
 import com.telluriumlang.tellurium.GetInfoStatementAction
+import com.telluriumlang.tellurium.MouseMove
 
 /**
  * This class contains custom validation rules. 
@@ -54,6 +55,15 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 					TelluriumErrorTypes.GET_INFO_WINDOW_INVALID)
 				}
 			}
+		}
+	}
+	
+	@Check
+	def checkMouseMove(MouseMove mm){
+		if(mm.target===null&&(mm.XOffset===null||mm.YOffset===null)){
+			error("Mouse move instruction (to element / by offset) should be specified",
+				TelluriumPackage.Literals.MOUSE_MOVE__XOFFSET,
+				TelluriumErrorTypes.MOUSE_MOVE_WITHOUT_INSTRUCTION)
 		}
 	}
 	

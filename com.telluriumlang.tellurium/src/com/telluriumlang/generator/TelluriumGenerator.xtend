@@ -25,7 +25,6 @@ import com.telluriumlang.tellurium.IntLitera
 import com.telluriumlang.tellurium.LocateElement
 import com.telluriumlang.tellurium.ModifierKey
 import com.telluriumlang.tellurium.MouseAction
-import com.telluriumlang.tellurium.MouseInput
 import com.telluriumlang.tellurium.Navigate
 import com.telluriumlang.tellurium.OpenPage
 import com.telluriumlang.tellurium.QuitAndClose
@@ -41,6 +40,8 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import com.telluriumlang.tellurium.SimpleMouseInput
+import com.telluriumlang.tellurium.MouseMove
 
 /**
  * Generates code from the Tellurium model on save.
@@ -130,7 +131,7 @@ class TelluriumGenerator extends AbstractGenerator {
 	def dispatch String generateProgram(SimpleKeyboardInput ski, TelluriumGeneratorContext ctx)'''
 	«if(ski.target!==null){'''//target:«ski.target.generateProgram(ctx).trim»'''}»
 	//.sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx).trim»,«ENDIF»"«ski.keySequence»");
-	new Actions(driver).sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx).trim»,«ENDIF»"«ski.keySequence»").build().perform();
+	new Actions(driver).sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx).trim»,«ENDIF»"«ski.keySequence»").perform();
 	'''
 	
 	def dispatch String generateProgram(ComplexKeyboardInput cki, TelluriumGeneratorContext ctx){
@@ -140,7 +141,7 @@ class TelluriumGenerator extends AbstractGenerator {
 	'''
 	«if(cki.target!==null){'''//target:«cki.target.generateProgram(ctx).trim»'''}»
 	//.keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx).trim»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»);
-	new Actions(driver).keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx).trim»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).build().perform();
+	new Actions(driver).keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx).trim»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).perform();
 	'''
 	}
 	
@@ -155,9 +156,9 @@ class TelluriumGenerator extends AbstractGenerator {
 		}
 	}
 	
-	def dispatch String generateProgram(MouseInput mi, TelluriumGeneratorContext ctx)'''
-	«if(mi.target!==null){'''//target:«mi.target.generateProgram(ctx).trim»'''}»
-	new Actions(driver).«mi.MAction.interpretMouseAction»(«IF mi.target!==null»«mi.target.generateProgram(ctx).trim»«ENDIF»).build().perform();
+	def dispatch String generateProgram(SimpleMouseInput smi, TelluriumGeneratorContext ctx)'''
+	«if(smi.target!==null){'''//target:«smi.target.generateProgram(ctx).trim»'''}»
+	new Actions(driver).«smi.MAction.interpretMouseAction»(«IF smi.target!==null»«smi.target.generateProgram(ctx).trim»«ENDIF»).perform();
 	'''
 	
 	
@@ -170,6 +171,22 @@ class TelluriumGenerator extends AbstractGenerator {
 			case MouseAction::RELEASE : '''release'''
 			
 		}
+	}
+	
+	def dispatch String generateProgram(MouseMove mm, TelluriumGeneratorContext ctx){
+		var boolean hasTarget=(mm.target!==null)
+		var boolean hasOffset=(mm.XOffset!==null)
+		var String moveMethod;
+		if(hasTarget){
+			moveMethod="ToElement"
+		}else if(hasOffset){
+			moveMethod="ByOffset"
+		}else{
+			return '''/*Mouse move without instruction*/'''
+		}
+		'''
+		new Actions(driver).move«moveMethod»(«IF hasTarget»«mm.target.generateProgram(ctx)»«ENDIF»«IF hasTarget&&hasOffset»,«ENDIF»«IF hasOffset»«mm.XOffset.generateProgram(ctx)»,«mm.YOffset.generateProgram(ctx)»«ENDIF»).perform();
+		'''
 	}
 	
 	def dispatch String generateProgram(OpenPage openPage, TelluriumGeneratorContext ctx)'''driver.get(«openPage.target.generateProgram(ctx)»);'''

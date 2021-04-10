@@ -16,7 +16,11 @@ import com.telluriumlang.tellurium.ElementReference
 import com.telluriumlang.tellurium.ElementReferences
 import com.telluriumlang.tellurium.ExtractEleFromListRef
 import com.telluriumlang.tellurium.ExtractElementFromList
+import com.telluriumlang.tellurium.FindElement
+import com.telluriumlang.tellurium.FindElements
+import com.telluriumlang.tellurium.GetAttributeStatement
 import com.telluriumlang.tellurium.GetInfoStatement
+import com.telluriumlang.tellurium.GetInfoStatementAction
 import com.telluriumlang.tellurium.IntLitera
 import com.telluriumlang.tellurium.LocateElement
 import com.telluriumlang.tellurium.ModifierKey
@@ -37,8 +41,6 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import com.telluriumlang.tellurium.GetAttributeStatement
-import com.telluriumlang.tellurium.GetInfoStatementAction
 
 /**
  * Generates code from the Tellurium model on save.
@@ -224,7 +226,14 @@ class TelluriumGenerator extends AbstractGenerator {
 		return "Object"
 	}
 		
-	def dispatch String generateProgram(Variables vars, TelluriumGeneratorContext ctx)''''''
+	def dispatch String generateProgram(FindElement fe, TelluriumGeneratorContext ctx)
+	'''«ElementSelectorGenerator.generateSelector(fe,ctx)»'''
+	
+	def dispatch String generateProgram(FindElements fes, TelluriumGeneratorContext ctx)
+	'''«ElementSelectorGenerator.generateSelector(fes,ctx)»'''
+	
+	def dispatch String generateProgram(ExtractElementFromList eefl, TelluriumGeneratorContext ctx)
+	'''«ElementSelectorGenerator.generateExtractor(eefl)».get(«eefl.index.generateProgram(ctx)»)'''
 	
 	def dispatch String generateProgram(DoubleLitera fl, TelluriumGeneratorContext ctx)'''«fl.^val»'''
 	

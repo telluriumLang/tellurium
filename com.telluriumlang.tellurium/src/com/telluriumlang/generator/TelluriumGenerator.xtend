@@ -42,6 +42,8 @@ import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import com.telluriumlang.tellurium.SimpleMouseInput
 import com.telluriumlang.tellurium.MouseMove
+import com.telluriumlang.tellurium.Offset
+import com.telluriumlang.tellurium.MouseDragNDrop
 
 /**
  * Generates code from the Tellurium model on save.
@@ -175,7 +177,7 @@ class TelluriumGenerator extends AbstractGenerator {
 	
 	def dispatch String generateProgram(MouseMove mm, TelluriumGeneratorContext ctx){
 		var boolean hasTarget=(mm.target!==null)
-		var boolean hasOffset=(mm.XOffset!==null)
+		var boolean hasOffset=(mm.offset!==null)
 		var String moveMethod;
 		if(hasTarget){
 			moveMethod="ToElement"
@@ -185,9 +187,24 @@ class TelluriumGenerator extends AbstractGenerator {
 			return '''/*Mouse move without instruction*/'''
 		}
 		'''
-		new Actions(driver).move«moveMethod»(«IF hasTarget»«mm.target.generateProgram(ctx)»«ENDIF»«IF hasTarget&&hasOffset»,«ENDIF»«IF hasOffset»«mm.XOffset.generateProgram(ctx)»,«mm.YOffset.generateProgram(ctx)»«ENDIF»).perform();
+		new Actions(driver).move«moveMethod»(«IF hasTarget»«mm.target.generateProgram(ctx)»«ENDIF»«IF hasTarget&&hasOffset»,«ENDIF»«IF hasOffset»«mm.offset.generateProgram(ctx)»«ENDIF»).perform();
 		'''
 	}
+	
+	def dispatch String generateProgram(MouseDragNDrop mdnd, TelluriumGeneratorContext ctx){
+		var boolean hasTarget=(mdnd.target!==null)
+		var boolean hasOffset=(mdnd.offset!==null)
+		var String moveMethod="";
+		if(hasOffset){
+			moveMethod="By"
+		}
+		'''
+		new Actions(driver).dragAndDrop«moveMethod»(«mdnd.source.generateProgram(ctx)»,«IF hasTarget»«mdnd.target.generateProgram(ctx)»«ENDIF»«IF hasOffset»«mdnd.offset.generateProgram(ctx)»«ENDIF»).perform();
+		'''
+	}
+	
+	def dispatch String generateProgram(Offset o, TelluriumGeneratorContext ctx)
+	'''«o.XOffset.generateProgram(ctx)»,«o.YOffset.generateProgram(ctx)»'''
 	
 	def dispatch String generateProgram(OpenPage openPage, TelluriumGeneratorContext ctx)'''driver.get(«openPage.target.generateProgram(ctx)»);'''
 	
@@ -262,15 +279,13 @@ class TelluriumGenerator extends AbstractGenerator {
 	
 	def dispatch String generateProgram(ElementReferences exp, TelluriumGeneratorContext ctx)''''''
 	
-	def dispatch String generateProgram(LocateElement exp, TelluriumGeneratorContext ctx)'''
-	«ElementSelectorGenerator.generateSelector(exp.element, ctx)»
-	'''
+	def dispatch String generateProgram(LocateElement exp, TelluriumGeneratorContext ctx)
+	'''«ElementSelectorGenerator.generateSelector(exp.element, ctx)»'''
 	
 	def dispatch String generateProgram(ElementReference exp, TelluriumGeneratorContext ctx)'''«exp.ref.name»'''
 	
-	def dispatch String generateProgram(ExtractEleFromListRef efr, TelluriumGeneratorContext ctx)'''
-	«ElementSelectorGenerator.generateExtractor(efr.extractRef)».get(«efr.extractRef.index.generateProgram(ctx)»)
-	'''
+	def dispatch String generateProgram(ExtractEleFromListRef efr, TelluriumGeneratorContext ctx)
+	'''«ElementSelectorGenerator.generateExtractor(efr.extractRef)».get(«efr.extractRef.index.generateProgram(ctx)»)'''
 	
 	def dispatch String generateProgram(AssertStatement assert, TelluriumGeneratorContext ctx){
 		AssertionGenerator.generateAssertion(assert,ctx,this)

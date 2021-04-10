@@ -79,7 +79,7 @@ enum ModifierKey :
 ;
 
 MouseInput :
-	'mouse' ( SimpleMouseInput | MouseMove )
+	'mouse' ( SimpleMouseInput | MouseMove | MouseDragNDrop )
 ;
 
 SimpleMouseInput :
@@ -91,7 +91,15 @@ enum MouseAction :
 ;
 
 MouseMove :
-	{MouseMove} 'move' ( 'to' target = ElementReferences )? ( 'by' '(' xOffset = ( IntLitera | VarExpression ) ',' yOffset = ( IntLitera | VarExpression ) ')' )?
+	{MouseMove} 'move' ( 'to' target = ElementReferences )? ( 'by' offset=Offset )?
+;
+
+MouseDragNDrop :
+	'drag' 'and' 'drop' 'from' source = ElementReferences ( 'to' target = ElementReferences | 'by' offset=Offset )
+;
+
+Offset :
+	'(' xOffset = ( IntLitera | VarExpression ) ',' yOffset = ( IntLitera | VarExpression ) ')'
 ;
 
 Cookie :

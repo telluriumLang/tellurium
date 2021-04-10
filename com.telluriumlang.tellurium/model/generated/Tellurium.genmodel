@@ -91,8 +91,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//SimpleMouseInput/mAction"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//MouseMove">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//MouseMove/xOffset"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//MouseMove/yOffset"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//MouseMove/offset"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//MouseDragNDrop">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//MouseDragNDrop/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//MouseDragNDrop/offset"/>
+    </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//Offset">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//Offset/xOffset"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//Offset/yOffset"/>
     </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//Cookie">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//Cookie/action"/>

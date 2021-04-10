@@ -60,9 +60,9 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 	
 	@Check
 	def checkMouseMove(MouseMove mm){
-		if(mm.target===null&&(mm.XOffset===null||mm.YOffset===null)){
+		if(mm.target===null&&mm.offset===null){
 			error("Mouse move instruction (to element / by offset) should be specified",
-				TelluriumPackage.Literals.MOUSE_MOVE__XOFFSET,
+				TelluriumPackage.Literals.MOUSE_MOVE__OFFSET,
 				TelluriumErrorTypes.MOUSE_MOVE_WITHOUT_INSTRUCTION)
 		}
 	}

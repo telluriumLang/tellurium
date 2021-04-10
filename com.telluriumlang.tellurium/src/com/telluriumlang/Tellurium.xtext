@@ -108,7 +108,7 @@ VariableDeclaration:
 
 Variables:
 	DoubleLitera | IntLitera | StringLitera | VarExpression | 
-	ElementExpressions | ExtractElementFromList
+	ElementExpressions | ExtractElementFromList | GetInfoStatement | GetAttributeStatement
 ;
 
 DoubleLitera:
@@ -222,3 +222,14 @@ AssertNotIn:
 	needle = Variables 'not' 'in' hayStack = Variables
 ;
 
+GetInfoStatement:
+	'get' action=GetInfoStatementAction 'from' (target=ElementReferences)? window=('window')?
+;
+
+GetAttributeStatement:
+	'get' 'attribute' val=(StringLitera | VarExpression) 'from' target=ElementReferences
+;
+
+enum GetInfoStatementAction:
+	tagName | isEnable | isSelected | isDisplay | title
+;

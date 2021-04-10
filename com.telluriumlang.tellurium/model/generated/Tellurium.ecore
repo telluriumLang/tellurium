@@ -186,4 +186,23 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="hayStack" eType="#//Variables"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetInfoStatement" eSuperTypes="#//Variables">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="#//GetInfoStatementAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ElementReferences"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="window" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetAttributeStatement" eSuperTypes="#//Variables">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="val" eType="#//Variables"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ElementReferences"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="GetInfoStatementAction">
+    <eLiterals name="tagName" literal="tagName"/>
+    <eLiterals name="isEnable" value="1" literal="isEnable"/>
+    <eLiterals name="isSelected" value="2" literal="isSelected"/>
+    <eLiterals name="isDisplay" value="3" literal="isDisplay"/>
+    <eLiterals name="title" value="4" literal="title"/>
+  </eClassifiers>
 </ecore:EPackage>

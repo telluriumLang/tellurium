@@ -52,6 +52,17 @@ public class TelluriumXPectGeneratorTestxt {
 		WebElement childElement2 = elements.get(1);
 		WebElement childElement3 = elements.get(vInt);
 	}
+	
+	@Test
+	public void getElemenetAttrTest() {
+		WebElement selectByID = driver.findElement(By.id("id"));
+		String attr = selectByID.getAttribute("Hello");
+		String titles = driver.getTitle();
+		boolean tIsEnable = selectByID.isEnabled();
+		boolean tIsSelected = selectByID.isSelected();
+		boolean tisDisplay = selectByID.isDisplayed();
+		String tTageName = selectByID.getTagName();
+	}
 
 }
    ---
@@ -78,4 +89,14 @@ test variableTest {
 	let childElement = $['s'][0]
 	let childElement2 = elements[1]
 	let childElement3 = elements[vInt]
+}
+
+test getElemenetAttrTest {
+	let selectByID = $("#id")
+	let attr = get attribute "Hello" from selectByID
+	let titles = get title from window
+	let tIsEnable = get isEnable from selectByID
+	let tIsSelected = get isSelected from selectByID
+	let tisDisplay = get isDisplay from selectByID
+	let tTageName = get tagName from selectByID
 }

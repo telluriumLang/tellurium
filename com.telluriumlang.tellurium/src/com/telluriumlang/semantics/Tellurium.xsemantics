@@ -15,6 +15,12 @@ import com.telluriumlang.tellurium.AssertTrue
 import com.telluriumlang.tellurium.AssertFalse
 import com.telluriumlang.tellurium.AssertIn
 import com.telluriumlang.tellurium.AssertNotIn
+import com.telluriumlang.tellurium.GetInfoStatement
+import com.telluriumlang.tellurium.GetInfoStatementAction
+import com.telluriumlang.tellurium.GetAttributeStatement
+import com.telluriumlang.tellurium.OpenPage
+import com.telluriumlang.tellurium.ExtractEleFromListRef
+import com.telluriumlang.tellurium.LocateElement
 
 system com.telluriumlang.semantics.TelluriumSemantics
 
@@ -45,6 +51,9 @@ axiom TFindElements
 
 axiom TExtractElementFromList
 	G |- ExtractElementFromList exp: TelluriumBasicType.WEB_ELEMENT
+	
+axiom TGetAttributeStatement
+	G |- GetAttributeStatement exp: TelluriumBasicType.STRING
 
 rule TVariableDeclaration
 	G |- VariableDeclaration exp : TelluriumBasicType t
@@ -58,10 +67,47 @@ from {
 	empty |- varExp.^var.value : t
 }
 
+rule TExtractEleFromListRef
+	G |- ExtractEleFromListRef exp : TelluriumBasicType t
+from {
+	empty |- exp.extractRef : t
+}
+
+rule TLocateElement
+	G |- LocateElement exp : TelluriumBasicType t
+from {
+	empty |- exp.element : t
+}
+
+rule TElementReference
+	G |- ElementReference exp : TelluriumBasicType t
+from {
+	empty |- exp.ref : t
+}
+
+rule TGetInfoStatement
+	G |- GetInfoStatement varExp : TelluriumBasicType t
+from {
+	if (varExp.action === GetInfoStatementAction.TAG_NAME 
+		|| varExp.action === GetInfoStatementAction.TITLE
+	) {
+		t = TelluriumBasicType.STRING
+	}else{
+		t = TelluriumBasicType.BOOLEAN
+	}
+}
+
 rule NumericSubTyping
     derives G |- TelluriumBasicType left <: TelluriumBasicType right
 from {
 	right === TelluriumBasicType.DOUBLE or left === right
+}
+
+checkrule checkOpenPage for 
+	OpenPage stmt
+from {
+	empty |- stmt.target : var TelluriumBasicType referenceType
+	empty |- referenceType <: TelluriumBasicType.STRING
 }
 
 checkrule checkElementReferenceStatement for 
@@ -115,4 +161,22 @@ from {
 	empty |- needleType <: TelluriumBasicType.WEB_ELEMENT
 	empty |- stmt.hayStack : var TelluriumBasicType hayStackType
 	empty |- hayStackType <: TelluriumBasicType.WEB_ELEMENT_LIST
+}
+
+checkrule checkGetInfoStatement for
+	GetInfoStatement stmt
+from {
+	if(stmt.target !== null){
+		empty |- stmt.target : var TelluriumBasicType targetType
+		empty |- targetType <: TelluriumBasicType.WEB_ELEMENT
+	}
+}
+
+checkrule checkGetAttributeStatement for
+	GetAttributeStatement stmt
+from {
+	empty |- stmt.target : var TelluriumBasicType targetType
+	empty |- targetType <: TelluriumBasicType.WEB_ELEMENT
+	empty |- stmt.^val : var TelluriumBasicType valType
+	empty |- valType <: TelluriumBasicType.STRING
 }

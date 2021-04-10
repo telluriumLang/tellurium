@@ -8,6 +8,8 @@ import com.telluriumlang.tellurium.AutomationTestSet
 import com.telluriumlang.tellurium.DriverConfig
 import com.telluriumlang.tellurium.TelluriumPackage
 import com.telluriumlang.semantics.validation.TelluriumSemanticsValidator
+import com.telluriumlang.tellurium.GetInfoStatement
+import com.telluriumlang.tellurium.GetInfoStatementAction
 
 /**
  * This class contains custom validation rules. 
@@ -23,6 +25,35 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 			error("Cannot define more than 1 driver", 
 					TelluriumPackage.Literals.AUTOMATION_TEST_SET__TEST_CONFIG,
 					TelluriumErrorTypes.DUPLICATED_DRIVER_CFG)
+		}
+	}
+	
+	@Check
+	def checkGetInfoStatementAction(GetInfoStatement gis){
+		var window = gis.window
+		var target = gis.target
+		if(window !== null && target !== null ){
+			error("Cannot define both element and window at the same time", 
+					TelluriumPackage.Literals.GET_INFO_STATEMENT__ACTION,
+					TelluriumErrorTypes.DUPLICATED_GET_INFO_TARGET)
+		}else if (window === null && target === null){
+			error("A target should be defined", 
+					TelluriumPackage.Literals.GET_INFO_STATEMENT__ACTION,
+					TelluriumErrorTypes.NO_GET_INFO_TARGET)
+		}else{
+			if(gis.action == GetInfoStatementAction.TITLE ){
+				if( target !== null ){
+					error("Get title from element is not supported.", 
+					TelluriumPackage.Literals.GET_INFO_STATEMENT__ACTION,
+					TelluriumErrorTypes.GET_INFO_TARGET_INVALID)
+				}
+			}else{
+				if( window !== null ){
+					error("Get " + gis.action.getName + " from the window is not supported.", 
+					TelluriumPackage.Literals.GET_INFO_STATEMENT__WINDOW,
+					TelluriumErrorTypes.GET_INFO_WINDOW_INVALID)
+				}
+			}
 		}
 	}
 	

@@ -3,40 +3,42 @@
  */
 package com.telluriumlang.generator
 
+import com.telluriumlang.tellurium.AssertStatement
+import com.telluriumlang.tellurium.AutomationTestSet
+import com.telluriumlang.tellurium.ComplexKeyboardInput
+import com.telluriumlang.tellurium.Cookie
+import com.telluriumlang.tellurium.CookieAdd
+import com.telluriumlang.tellurium.CookieDelete
+import com.telluriumlang.tellurium.DoubleLitera
+import com.telluriumlang.tellurium.DriverImplicityWait
+import com.telluriumlang.tellurium.ElementExpressions
+import com.telluriumlang.tellurium.ElementReference
+import com.telluriumlang.tellurium.ElementReferences
+import com.telluriumlang.tellurium.ExtractEleFromListRef
+import com.telluriumlang.tellurium.ExtractElementFromList
+import com.telluriumlang.tellurium.GetInfoStatement
+import com.telluriumlang.tellurium.IntLitera
+import com.telluriumlang.tellurium.LocateElement
+import com.telluriumlang.tellurium.ModifierKey
+import com.telluriumlang.tellurium.MouseAction
+import com.telluriumlang.tellurium.MouseInput
+import com.telluriumlang.tellurium.Navigate
+import com.telluriumlang.tellurium.OpenPage
+import com.telluriumlang.tellurium.QuitAndClose
+import com.telluriumlang.tellurium.QuitAndCloseAction
+import com.telluriumlang.tellurium.SimpleKeyboardInput
+import com.telluriumlang.tellurium.StringLitera
+import com.telluriumlang.tellurium.TestCase
+import com.telluriumlang.tellurium.VarExpression
+import com.telluriumlang.tellurium.VariableDeclaration
+import com.telluriumlang.tellurium.Variables
+import com.telluriumlang.tellurium.Window
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import com.telluriumlang.tellurium.AutomationTestSet
-import com.telluriumlang.tellurium.TestCase
-import com.telluriumlang.tellurium.DriverImplicityWait
-import com.telluriumlang.tellurium.SimpleKeyboardInput
-import com.telluriumlang.tellurium.ComplexKeyboardInput
-import com.telluriumlang.tellurium.KeyboardInput
-import com.telluriumlang.tellurium.ModifierKey
-import com.telluriumlang.tellurium.MouseAction
-import com.telluriumlang.tellurium.MouseInput
-import com.telluriumlang.tellurium.OpenPage
-import com.telluriumlang.tellurium.QuitAndClose
-import com.telluriumlang.tellurium.Navigate
-import com.telluriumlang.tellurium.QuitAndCloseAction
-import com.telluriumlang.tellurium.Window
-import com.telluriumlang.tellurium.CookieAdd
-import com.telluriumlang.tellurium.CookieDelete
-import com.telluriumlang.tellurium.Cookie
-import com.telluriumlang.tellurium.VariableDeclaration
-import com.telluriumlang.tellurium.DoubleLitera
-import com.telluriumlang.tellurium.IntLitera
-import com.telluriumlang.tellurium.StringLitera
-import com.telluriumlang.tellurium.Variables
-import com.telluriumlang.tellurium.VarExpression
-import com.telluriumlang.tellurium.ElementExpressions
-import com.telluriumlang.tellurium.ExtractElementFromList
-import com.telluriumlang.tellurium.ElementReferences
-import com.telluriumlang.tellurium.LocateElement
-import com.telluriumlang.tellurium.ElementReference
-import com.telluriumlang.tellurium.ExtractEleFromListRef
-import com.telluriumlang.tellurium.AssertStatement
+import com.telluriumlang.tellurium.GetAttributeStatement
+import com.telluriumlang.tellurium.GetInfoStatementAction
 
 /**
  * Generates code from the Tellurium model on save.
@@ -207,10 +209,17 @@ class TelluriumGenerator extends AbstractGenerator {
 			return "double"
 		}else if(vars instanceof IntLitera){
 			return "int"
-		}else if(vars instanceof StringLitera){
+		}else if(vars instanceof StringLitera || vars instanceof GetAttributeStatement){
 			return "String"
 		}else if(vars instanceof VarExpression){
 			return (vars as VarExpression).^var.value.inferType(ctx)
+		}else if(vars instanceof GetInfoStatement){
+			var tmpType = (vars as GetInfoStatement).action
+			if(tmpType == GetInfoStatementAction.TAG_NAME || tmpType == GetInfoStatementAction.TITLE ){
+				return 'String';
+			}else{
+				return 'boolean';
+			}
 		}
 		return "Object"
 	}
@@ -240,6 +249,23 @@ class TelluriumGenerator extends AbstractGenerator {
 	def dispatch String generateProgram(AssertStatement assert, TelluriumGeneratorContext ctx){
 		AssertionGenerator.generateAssertion(assert,ctx,this)
 	}
+	
+	def dispatch String generateProgram(GetInfoStatement exp, TelluriumGeneratorContext ctx){
+		switch(exp.action){
+			case TAG_NAME:
+				return '''«exp.target.generateProgram(ctx)».getTagName()'''
+			case IS_ENABLE:
+				return '''«exp.target.generateProgram(ctx)».isEnabled()'''
+			case IS_DISPLAY:
+				return '''«exp.target.generateProgram(ctx)».isDisplayed()'''
+			case IS_SELECTED:
+				return '''«exp.target.generateProgram(ctx)».isSelected()'''
+			case TITLE:
+				return '''driver.getTitle()'''
+		}
+	}
+	
+	def dispatch String generateProgram(GetAttributeStatement gas, TelluriumGeneratorContext ctx )'''«gas.target.generateProgram(ctx)».getAttribute(«gas.^val.generateProgram(ctx)»)'''
 	
 }
 

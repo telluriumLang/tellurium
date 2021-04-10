@@ -22,6 +22,13 @@ import com.telluriumlang.tellurium.MouseInput
 import com.telluriumlang.tellurium.SimpleKeyboardInput
 import com.telluriumlang.tellurium.ComplexKeyboardInput
 import com.telluriumlang.tellurium.ExtractElementFromList
+import com.telluriumlang.tellurium.GetInfoStatement
+import com.telluriumlang.tellurium.GetAttributeStatement
+import com.telluriumlang.tellurium.AssertEquals
+import com.telluriumlang.tellurium.AssertNotEquals
+import com.telluriumlang.tellurium.AssertIn
+import com.telluriumlang.tellurium.AssertNotIn
+import com.telluriumlang.tellurium.AssertStatement
 
 /**
  * TelluriumScopeProvider - The Scope system for Tellurium
@@ -29,19 +36,24 @@ import com.telluriumlang.tellurium.ExtractElementFromList
 class TelluriumScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def IScope scope_VarExpression_var(VarExpression varExp, EReference ref){
-		var topStatement = varExp as EObject
-		while(!(topStatement.eContainer instanceof TestCase)){
-			topStatement = topStatement.eContainer
-		}
-		varExp.eContainer.extractScope(new AuxiliaryScopeContext(topStatement))
+		
+		varExp.eContainer.extractScope(new AuxiliaryScopeContext(varExp.findTopStatmentInTestcase))
 	}
 	
 	def IScope scope_ElementsSelectorRef_ref(ElementsSelectorRef esrf, EReference ref){
-		esrf.eContainer.extractScope(new AuxiliaryScopeContext(esrf.eContainer))
+		esrf.eContainer.extractScope(new AuxiliaryScopeContext(esrf.findTopStatmentInTestcase))
 	}
 	
 	def IScope scope_ElementReference_ref(ElementReference erf, EReference ref){
-		erf.eContainer.extractScope(new AuxiliaryScopeContext(erf.eContainer))
+		erf.eContainer.extractScope(new AuxiliaryScopeContext(erf.findTopStatmentInTestcase))
+	}
+	
+	def EObject findTopStatmentInTestcase(EObject varExp){
+		var topStatement = varExp
+		while(!(topStatement.eContainer instanceof TestCase)){
+			topStatement = topStatement.eContainer
+		}
+		return topStatement
 	}
 	
 	def dispatch IScope extractScope(VariableDeclaration varDec, AuxiliaryScopeContext ctx){
@@ -70,6 +82,34 @@ class TelluriumScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def dispatch IScope extractScope(ExtractElementFromList varDec, AuxiliaryScopeContext ctx){
 		varDec.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(AssertEquals aeq, AuxiliaryScopeContext ctx){
+		aeq.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(AssertNotEquals aneq, AuxiliaryScopeContext ctx){
+		aneq.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(AssertIn asi, AuxiliaryScopeContext ctx){
+		asi.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(AssertNotIn ani, AuxiliaryScopeContext ctx){
+		ani.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(AssertStatement ass, AuxiliaryScopeContext ctx){
+		ass.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(GetInfoStatement gis, AuxiliaryScopeContext ctx){
+		gis.eContainer.extractScope(ctx)
+	}
+	
+	def dispatch IScope extractScope(GetAttributeStatement gas, AuxiliaryScopeContext ctx){
+		gas.eContainer.extractScope(ctx)
 	}
 	
 	def dispatch IScope extractScope(TestCase tc, AuxiliaryScopeContext ctx){

@@ -11,6 +11,11 @@ import com.telluriumlang.semantics.validation.TelluriumSemanticsValidator
 import com.telluriumlang.tellurium.GetInfoStatement
 import com.telluriumlang.tellurium.GetInfoStatementAction
 import com.telluriumlang.tellurium.MouseMove
+import com.telluriumlang.tellurium.TestCase
+import com.telluriumlang.tellurium.TestStatement
+import com.telluriumlang.tellurium.QuitAndClose
+import com.telluriumlang.tellurium.QuitAndCloseAction
+import org.eclipse.emf.common.util.EList
 
 /**
  * This class contains custom validation rules. 
@@ -64,6 +69,67 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 			error("Mouse move instruction (to element / by offset) should be specified",
 				TelluriumPackage.Literals.MOUSE_MOVE__OFFSET,
 				TelluriumErrorTypes.MOUSE_MOVE_WITHOUT_INSTRUCTION)
+		}
+	}
+	
+	@Check
+	def checkStatementAfterQuit(TestCase tc){
+		if(tc.statements.fold(1,[state,stmt|stmt.computeQuitState(state)])==0){
+			error("No statement allowed after quit",
+				TelluriumPackage.Literals.TEST_CASE__STATEMENTS,
+				TelluriumErrorTypes.STATEMENT_AFTER_QUIT)
+		}
+	}
+	
+	/*quitState
+	 * 0=encountered other statement after encounter
+	 * 1=no quit statement encountered
+	 * 2=encountered quit statement
+	 */
+	
+	dispatch def int computeQuitState(TestStatement stmt, int quitState){
+		if(quitState == 2){
+			return 0
+		}else{
+			return quitState
+		}
+	}
+	
+	dispatch def int computeQuitState(QuitAndClose qacStmt, int quitState){
+		if(qacStmt.action == QuitAndCloseAction.QUIT){
+			return 2
+		}else{
+			if(quitState == 2){
+				return 0
+			}else{
+				return quitState
+		}
+		}
+	}
+	
+	@Check
+	def checkDuplicatedQuit(TestCase tc){
+		val quitCount=tc.statements.countQuitForStatementList(0);
+		if(quitCount>1){
+			error("Quit can be invoked at most once within a test case",
+				TelluriumPackage.Literals.TEST_CASE__STATEMENTS,
+				TelluriumErrorTypes.DUPLICATED_QUIT)
+		}
+	}
+	
+	def countQuitForStatementList(EList<TestStatement> stmts, int startCount){
+		stmts.fold(startCount, [previousCount,stmt|stmt.countQuit(previousCount)])
+	}
+	
+	dispatch def int countQuit(TestStatement stmt, int quitCount){
+		return quitCount
+	}
+	
+	dispatch def int countQuit(QuitAndClose qacStmt, int quitCount){
+		if(qacStmt.action == QuitAndCloseAction.QUIT){
+			return quitCount + 1
+		}else{
+			return quitCount
 		}
 	}
 	

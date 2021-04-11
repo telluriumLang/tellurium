@@ -11,4 +11,6 @@ class TelluriumErrorTypes {
 	public static val String GET_INFO_TARGET_INVALID = "GET_INFO_TARGET_INVALID"; 
 	public static val String GET_INFO_WINDOW_INVALID = "GET_INFO_WINDOW_INVALID"; 
 	public static val String MOUSE_MOVE_WITHOUT_INSTRUCTION = "MOUSE_MOVE_WITHOUT_INSTRUCTION"; 
+	public static val String STATEMENT_AFTER_QUIT = "STATEMENT_AFTER_QUIT"; 
+	public static val String DUPLICATED_QUIT = "DUPLICATED_QUIT"; 
 }

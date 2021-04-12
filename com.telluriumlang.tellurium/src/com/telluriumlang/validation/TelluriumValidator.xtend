@@ -84,19 +84,33 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 	
 	@Check
 	def checkTestCaseName(TestCase tc){
-		if(GeneratorConstant.JAVA_RESERVE_KEYWORDS.contains(tc.name)){
+		if(ValidatorConstant.JAVA_RESERVE_KEYWORDS.contains(tc.name)){
 			error("The name of Test: \""+tc.name+"\" is a reserved keyword of Java",
 				TelluriumPackage.Literals.TEST_CASE__NAME,
 				TelluriumErrorTypes.CONFLICT_WITH_JAVA_KEYWORD)
+		}
+		var program = tc.eContainer as AutomationTestSet
+		var nameCnt = program.testcases.filter(TestCase).filter[t | t.name !== null && t.name == tc.name].size
+		if(nameCnt > 1){
+			error("The name of Test: \""+tc.name+"\" is not unique in this test set",
+				TelluriumPackage.Literals.TEST_CASE__NAME,
+				TelluriumErrorTypes.DUPLICATED_NAME)
 		}
 	}
 	
 	@Check
 	def checkVariableDeclarationName(VariableDeclaration varDec){
-		if(GeneratorConstant.JAVA_RESERVE_KEYWORDS.contains(varDec.name)){
+		if(ValidatorConstant.JAVA_RESERVE_KEYWORDS.contains(varDec.name)){
 			error("The name of variable \""+varDec.name+"\" is a reserved keyword of Java",
 				TelluriumPackage.Literals.VARIABLE_DECLARATION__NAME,
 				TelluriumErrorTypes.CONFLICT_WITH_JAVA_KEYWORD)
+		}
+		var testCase = varDec.eContainer as TestCase
+		var nameCnt = testCase.statements.filter(VariableDeclaration).filter[v | v.name !== null && v.name == varDec.name].size
+		if(nameCnt > 1){
+			error("The name of variable \""+ varDec.name+"\" is not unique in this test set",
+				TelluriumPackage.Literals.VARIABLE_DECLARATION__NAME,
+				TelluriumErrorTypes.DUPLICATED_NAME)
 		}
 	}
 	

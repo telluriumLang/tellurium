@@ -1,6 +1,6 @@
 package com.telluriumlang.validation
 
-class GeneratorConstant {
+class ValidatorConstant {
 	
 	public static val JAVA_RESERVE_KEYWORDS = #['abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch',
 		'char', 'class', 'continue', 'const', 'default', 'do', 'double', 'else', 'enum', 'exports', 'extends', 'final',

@@ -13,8 +13,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class TelluriumXPectGeneratorTestxt {
@@ -33,35 +33,45 @@ public class TelluriumXPectGeneratorTestxt {
 	
 	@Test
 	public void selectorTest() {
-		WebElement selectByID = driver.findElement(By.id("id"));
-		WebElement selectByClass = driver.findElement(By.className("class"));
-		WebElement selectByTagName = driver.findElement(By.tagName("name"));
-		WebElement selectByCssSelector = driver.findElement(By.cssSelector("#id > li"));
-		WebElement selectByXpath = driver.findElement(By.xpath("/html"));
-		WebElement selectByName = driver.findElement(By.name("name"));
+		//target:driver.findElement(By.id("id"))
+		new Actions(driver).click(driver.findElement(By.id("id"))).perform();
+		//target:driver.findElement(By.className("class"))
+		new Actions(driver).click(driver.findElement(By.className("class"))).perform();
+		//target:driver.findElement(By.tagName("name"))
+		new Actions(driver).click(driver.findElement(By.tagName("name"))).perform();
+		//target:driver.findElement(By.cssSelector("#id > li"))
+		new Actions(driver).click(driver.findElement(By.cssSelector("#id > li"))).perform();
+		//target:driver.findElement(By.xpath("/html"))
+		new Actions(driver).click(driver.findElement(By.xpath("/html"))).perform();
+		//target:driver.findElement(By.name("name"))
+		new Actions(driver).click(driver.findElement(By.name("name"))).perform();
 	}
 	
 	@Test
 	public void variableTest() {
 		int vInt = 1;
-		double vDouble = 2.2;
-		String vStr = "Helloworld";
-		WebElement element = driver.findElement(By.tagName("a"));
 		List<WebElement> elements = driver.findElements(By.tagName("s"));
-		WebElement childElement = driver.findElements(By.tagName("s")).get(0);
-		WebElement childElement2 = elements.get(1);
-		WebElement childElement3 = elements.get(vInt);
+		driver.get("Helloworld");
+		//target:driver.findElement(By.tagName("a"))
+		new Actions(driver).click(driver.findElement(By.tagName("a"))).perform();
+		//target:driver.findElements(By.tagName("s")).get(0)
+		new Actions(driver).click(driver.findElements(By.tagName("s")).get(0)).perform();
+		//target:elements.get(1)
+		new Actions(driver).click(elements.get(1)).perform();
+		//target:elements.get(vInt)
+		new Actions(driver).click(elements.get(vInt)).perform();
+		Assert.assertEquals(2.2,2.2);
 	}
 	
 	@Test
 	public void getElemenetAttrTest() {
 		WebElement selectByID = driver.findElement(By.id("id"));
-		String attr = selectByID.getAttribute("Hello");
-		String titles = driver.getTitle();
-		boolean tIsEnable = selectByID.isEnabled();
-		boolean tIsSelected = selectByID.isSelected();
-		boolean tisDisplay = selectByID.isDisplayed();
-		String tTageName = selectByID.getTagName();
+		Assert.assertNotNull(selectByID.getAttribute("Hello"));
+		Assert.assertNotNull(driver.getTitle());
+		Assert.assertTrue(selectByID.isEnabled());
+		Assert.assertTrue(selectByID.isSelected());
+		Assert.assertTrue(selectByID.isDisplayed());
+		Assert.assertNotNull(selectByID.getTagName());
 	}
 
 }
@@ -78,6 +88,12 @@ test selectorTest {
 	let selectByCssSelector = $("#id > li")
 	let selectByXpath = $("/html")
 	let selectByName = $("name='name'")
+	mouse click on selectByID
+	mouse click on selectByClass
+	mouse click on selectByTagName
+	mouse click on selectByCssSelector
+	mouse click on selectByXpath
+	mouse click on selectByName
 }
 
 test variableTest {
@@ -89,6 +105,12 @@ test variableTest {
 	let childElement = $['s'][0]
 	let childElement2 = elements[1]
 	let childElement3 = elements[vInt]
+	open vStr
+	mouse click on element
+	mouse click on childElement
+	mouse click on childElement2
+	mouse click on childElement3
+	assert vDouble == 2.2
 }
 
 test getElemenetAttrTest {
@@ -99,4 +121,10 @@ test getElemenetAttrTest {
 	let tIsSelected = get isSelected from selectByID
 	let tisDisplay = get isDisplay from selectByID
 	let tTageName = get tagName from selectByID
+	assert attr not null
+	assert titles not null
+	assert tIsEnable is true
+	assert tIsSelected is true
+	assert tisDisplay is true
+	assert tTageName not null
 }

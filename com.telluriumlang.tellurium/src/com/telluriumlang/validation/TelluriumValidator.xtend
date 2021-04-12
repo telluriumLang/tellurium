@@ -183,7 +183,7 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 	def boolean findReference(EObject astRoot, EObject ref){
 		var refs =  astRoot.eCrossReferences
 		for(EObject refObj: refs){
-			if(ref == astRoot){
+			if(ref == refObj){
 				return true;
 			}
 		}

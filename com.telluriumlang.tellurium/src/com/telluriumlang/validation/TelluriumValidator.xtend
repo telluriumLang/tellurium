@@ -17,6 +17,7 @@ import com.telluriumlang.tellurium.QuitAndClose
 import com.telluriumlang.tellurium.QuitAndCloseAction
 import org.eclipse.emf.common.util.EList
 import com.telluriumlang.tellurium.VariableDeclaration
+import org.eclipse.emf.ecore.EObject
 
 /**
  * This class contains custom validation rules. 
@@ -114,6 +115,15 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 		}
 	}
 	
+	@Check
+	def unusedVarCheck(VariableDeclaration varDec){
+		if(!findReference(varDec.eContainer,varDec)){
+			warning("Variable "+ varDec.name+" is never used",
+				TelluriumPackage.Literals.VARIABLE_DECLARATION__NAME,
+				TelluriumErrorTypes.DUPLICATED_NAME)
+		}
+	}
+	
 	/*quitState
 	 * 0=encountered other statement after encounter
 	 * 1=no quit statement encountered
@@ -164,6 +174,25 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 		}else{
 			return quitCount
 		}
+	}
+	
+	/**
+	 * Traverse the AST to find the reference
+	 * @return true is reference exists
+	 */
+	def boolean findReference(EObject astRoot, EObject ref){
+		var refs =  astRoot.eCrossReferences
+		for(EObject refObj: refs){
+			if(ref == astRoot){
+				return true;
+			}
+		}
+		for(EObject child: astRoot.eContents){
+			if(findReference(child, ref)){
+				return true
+			}
+		}
+		return false;
 	}
 	
 }

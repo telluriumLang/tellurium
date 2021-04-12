@@ -45,6 +45,7 @@ import com.telluriumlang.tellurium.MouseMove
 import com.telluriumlang.tellurium.Offset
 import com.telluriumlang.tellurium.MouseDragNDrop
 import com.telluriumlang.tellurium.VariableAssignment
+import com.telluriumlang.optimization.PlatformIndependentOptimizer
 
 /**
  * Generates code from the Tellurium model on save.
@@ -58,13 +59,14 @@ class TelluriumGenerator extends AbstractGenerator {
 		var filePath = ctx.packageName.replaceAll("\\.","/") 
 		filePath = filePath + "/" + ctx.className + ".java"
 		val model = resource.contents.head as AutomationTestSet;
+		val optimizedModel = PlatformIndependentOptimizer.doOptimize(model);
 		try{
 			var packageName = "";
 			if(!ctx.packageName.empty){
 				packageName = "package " + ctx.packageName + ";";
 			}
 			var sourecode = model.generateProgram(ctx);
-			var importCode = generateImportCode(model,ctx);
+			var importCode = generateImportCode(optimizedModel,ctx);
 			var finalCode = packageName + BLANK_LINE + importCode + BLANK_LINE + sourecode + BLANK_LINE;
 			fsa.generateFile(filePath,finalCode.trim);
 		}catch(Exception ex){

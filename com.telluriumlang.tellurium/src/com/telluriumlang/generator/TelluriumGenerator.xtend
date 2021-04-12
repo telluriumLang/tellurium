@@ -44,6 +44,7 @@ import com.telluriumlang.tellurium.SimpleMouseInput
 import com.telluriumlang.tellurium.MouseMove
 import com.telluriumlang.tellurium.Offset
 import com.telluriumlang.tellurium.MouseDragNDrop
+import com.telluriumlang.tellurium.VariableAssignment
 
 /**
  * Generates code from the Tellurium model on save.
@@ -259,6 +260,10 @@ class TelluriumGenerator extends AbstractGenerator {
 		}
 		return "Object"
 	}
+	
+	def dispatch String generateProgram(VariableAssignment exp, TelluriumGeneratorContext ctx)'''
+	«exp.ref.name» = «exp.value.generateProgram(ctx)» ;
+	'''
 		
 	def dispatch String generateProgram(FindElement fe, TelluriumGeneratorContext ctx)
 	'''«ElementSelectorGenerator.generateSelector(fe,ctx)»'''

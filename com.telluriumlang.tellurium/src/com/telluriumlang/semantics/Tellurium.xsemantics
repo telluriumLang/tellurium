@@ -21,6 +21,7 @@ import com.telluriumlang.tellurium.GetAttributeStatement
 import com.telluriumlang.tellurium.OpenPage
 import com.telluriumlang.tellurium.ExtractEleFromListRef
 import com.telluriumlang.tellurium.LocateElement
+import com.telluriumlang.tellurium.VariableAssignment
 
 system com.telluriumlang.semantics.TelluriumSemantics
 
@@ -100,7 +101,7 @@ from {
 rule NumericSubTyping
     derives G |- TelluriumBasicType left <: TelluriumBasicType right
 from {
-	right === TelluriumBasicType.DOUBLE or left === right
+	(left === TelluriumBasicType.INT && right === TelluriumBasicType.DOUBLE) or left === right
 }
 
 checkrule checkOpenPage for 
@@ -179,4 +180,12 @@ from {
 	empty |- targetType <: TelluriumBasicType.WEB_ELEMENT
 	empty |- stmt.^val : var TelluriumBasicType valType
 	empty |- valType <: TelluriumBasicType.STRING
+}
+
+checkrule checkVariableAssignment for
+	VariableAssignment stmt
+from {
+	empty |- stmt.ref : var TelluriumBasicType targetType
+	empty |- stmt.value : var TelluriumBasicType valueType
+	empty |- valueType <: targetType
 }

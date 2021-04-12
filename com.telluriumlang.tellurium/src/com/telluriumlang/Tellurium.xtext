@@ -31,7 +31,7 @@ TestCase:
 
 TestStatement:
 	OpenPage | Navigate | Window | QuitAndClose | KeyboardInput | MouseInput | Cookie | 
-	VariableDeclaration | AssertStatement
+	VariableDeclaration | AssertStatement | VariableAssignment
 ;
 
 OpenPage:
@@ -120,6 +120,10 @@ CookieDelete :
 
 VariableDeclaration:
 	 "let" name=ID "=" value=Variables
+;
+
+VariableAssignment:
+	ref=[VariableDeclaration] '=' value=Variables
 ;
 
 Variables:

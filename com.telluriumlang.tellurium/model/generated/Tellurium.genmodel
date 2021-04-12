@@ -115,6 +115,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//VariableDeclaration/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//VariableDeclaration/value"/>
     </genClasses>
+    <genClasses ecoreClass="Tellurium.ecore#//VariableAssignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Tellurium.ecore#//VariableAssignment/ref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Tellurium.ecore#//VariableAssignment/value"/>
+    </genClasses>
     <genClasses ecoreClass="Tellurium.ecore#//Variables"/>
     <genClasses ecoreClass="Tellurium.ecore#//DoubleLitera">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Tellurium.ecore#//DoubleLitera/val"/>

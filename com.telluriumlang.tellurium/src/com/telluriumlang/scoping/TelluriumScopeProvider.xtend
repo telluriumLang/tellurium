@@ -29,6 +29,7 @@ import com.telluriumlang.tellurium.AssertNotEquals
 import com.telluriumlang.tellurium.AssertIn
 import com.telluriumlang.tellurium.AssertNotIn
 import com.telluriumlang.tellurium.AssertStatement
+import com.telluriumlang.tellurium.VariableAssignment
 
 /**
  * TelluriumScopeProvider - The Scope system for Tellurium
@@ -36,7 +37,6 @@ import com.telluriumlang.tellurium.AssertStatement
 class TelluriumScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def IScope scope_VarExpression_var(VarExpression varExp, EReference ref){
-		
 		varExp.eContainer.extractScope(new AuxiliaryScopeContext(varExp.findTopStatmentInTestcase))
 	}
 	
@@ -46,6 +46,10 @@ class TelluriumScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def IScope scope_ElementReference_ref(ElementReference erf, EReference ref){
 		erf.eContainer.extractScope(new AuxiliaryScopeContext(erf.findTopStatmentInTestcase))
+	}
+	
+	def IScope scope_VariableAssignment_ref(VariableAssignment varAss, EReference ref){
+		varAss.eContainer.extractScope(new AuxiliaryScopeContext(varAss.findTopStatmentInTestcase))
 	}
 	
 	def EObject findTopStatmentInTestcase(EObject varExp){

@@ -13,4 +13,5 @@ class TelluriumErrorTypes {
 	public static val String MOUSE_MOVE_WITHOUT_INSTRUCTION = "MOUSE_MOVE_WITHOUT_INSTRUCTION"; 
 	public static val String STATEMENT_AFTER_QUIT = "STATEMENT_AFTER_QUIT"; 
 	public static val String DUPLICATED_QUIT = "DUPLICATED_QUIT"; 
+	public static val String CONFLICT_WITH_JAVA_KEYWORD = "CONFLICT_WITH_JAVA_KEYWORD";
 }

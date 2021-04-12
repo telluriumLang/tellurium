@@ -16,6 +16,7 @@ import com.telluriumlang.tellurium.TestStatement
 import com.telluriumlang.tellurium.QuitAndClose
 import com.telluriumlang.tellurium.QuitAndCloseAction
 import org.eclipse.emf.common.util.EList
+import com.telluriumlang.tellurium.VariableDeclaration
 
 /**
  * This class contains custom validation rules. 
@@ -78,6 +79,24 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 			error("No statement allowed after quit",
 				TelluriumPackage.Literals.TEST_CASE__STATEMENTS,
 				TelluriumErrorTypes.STATEMENT_AFTER_QUIT)
+		}
+	}
+	
+	@Check
+	def checkTestCaseName(TestCase tc){
+		if(GeneratorConstant.JAVA_RESERVE_KEYWORDS.contains(tc.name)){
+			error("The name of Test: \""+tc.name+"\" is a reserved keyword of Java",
+				TelluriumPackage.Literals.TEST_CASE__NAME,
+				TelluriumErrorTypes.CONFLICT_WITH_JAVA_KEYWORD)
+		}
+	}
+	
+	@Check
+	def checkVariableDeclarationName(VariableDeclaration varDec){
+		if(GeneratorConstant.JAVA_RESERVE_KEYWORDS.contains(varDec.name)){
+			error("The name of variable \""+varDec.name+"\" is a reserved keyword of Java",
+				TelluriumPackage.Literals.VARIABLE_DECLARATION__NAME,
+				TelluriumErrorTypes.CONFLICT_WITH_JAVA_KEYWORD)
 		}
 	}
 	

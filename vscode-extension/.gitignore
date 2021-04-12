@@ -1,0 +1,5 @@
+/node_modules
+/languageServer
+/out
+/.vscode
+package-lock.json

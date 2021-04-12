@@ -1,0 +1,55 @@
+{
+	"name": "tellurium",
+	"displayName": "Tellurium",
+	"description": "Tellurium - A DSL for automation testing",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.49.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"activationEvents": [
+		"onLanguage:tellurium"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "tellurium",
+				"aliases": [
+					"Tellurium",
+					"tellurium"
+				],
+				"extensions": [
+					"te"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "tellurium",
+				"scopeName": "text.tellurium",
+				"path": "./syntaxes/tellurium.language.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^10.17.56",
+		"tslint": "^5.12.1",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^6.1.3"
+	}
+}

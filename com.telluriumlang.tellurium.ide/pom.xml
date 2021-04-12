@@ -8,6 +8,10 @@
 	</parent>
 	<artifactId>com.telluriumlang.tellurium.ide</artifactId>
 	<packaging>eclipse-plugin</packaging>
+	
+	<properties>
+		<languageServerDir>../../../vscode-extension/languageServer</languageServerDir>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -156,6 +160,31 @@
                 	</programs>
             	</configuration>
             </plugin>
+            <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-antrun-plugin</artifactId>
+	            <executions>
+	                <execution>
+	                    <id>copy-extention-file</id>
+	                    <phase>package</phase>
+	                    <goals>
+	                        <goal>run</goal>
+	                    </goals>
+	                    <configuration>
+	                        <tasks>
+	                        	<delete dir="${languageServerDir}"/>
+	                        	<mkdir dir="${languageServerDir}"/>
+	                            <copy todir="${languageServerDir}">
+	                                <fileset dir="${project.build.directory}/extensions">
+	                                    <include name="**/*" />
+	                                </fileset>
+	                            </copy>
+	                            <chmod file="${languageServerDir}/bin/main" perm="a+x"/>
+	                        </tasks>
+	                    </configuration>
+	                </execution>
+	            </executions>
+	        </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>

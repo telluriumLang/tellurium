@@ -1,0 +1,32 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Tellurium",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.tellurium",
+				"match": "\\b(Chrome|Edge|Firefox|HtmlUnit|IE|Safari|add|all|alt|and|assert|attribute|back|by|click|clickAndHold|close|cookie|ctrl|delete|doubleClick|drag|driver|drop|enter|false|forward|from|fullscreen|get|implicitly|in|into|is|isDisplay|isEnable|isSelected|let|maximize|message|meta|mouse|move|navigate|not|null|on|open|quit|refresh|release|rightClick|s|shift|tagName|test|title|to|true|using|value|wait|win|window|with)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.tellurium",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.tellurium",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "text.tellurium"
+}

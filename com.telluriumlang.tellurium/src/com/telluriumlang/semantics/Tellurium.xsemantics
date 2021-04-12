@@ -22,6 +22,7 @@ import com.telluriumlang.tellurium.OpenPage
 import com.telluriumlang.tellurium.ExtractEleFromListRef
 import com.telluriumlang.tellurium.LocateElement
 import com.telluriumlang.tellurium.VariableAssignment
+import com.telluriumlang.tellurium.Offset
 
 system com.telluriumlang.semantics.TelluriumSemantics
 
@@ -188,4 +189,13 @@ from {
 	empty |- stmt.ref : var TelluriumBasicType targetType
 	empty |- stmt.value : var TelluriumBasicType valueType
 	empty |- valueType <: targetType
+}
+
+checkrule checkOffset for
+	Offset offset
+from {
+	empty |- offset.XOffset : var TelluriumBasicType xOffsetType
+	empty |- xOffsetType <: TelluriumBasicType.INT
+	empty |- offset.YOffset : var TelluriumBasicType yOffsetType
+	empty |- yOffsetType <: TelluriumBasicType.INT
 }

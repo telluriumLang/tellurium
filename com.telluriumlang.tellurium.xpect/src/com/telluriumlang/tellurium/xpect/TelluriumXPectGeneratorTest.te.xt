@@ -20,6 +20,7 @@ public class TelluriumXPectGeneratorTestxt {
 	
 	
 	private static WebDriver driver;
+	private static Actions actionProvider;
 	
 	@Before
 	public void setup() {
@@ -28,22 +29,17 @@ public class TelluriumXPectGeneratorTestxt {
 		}
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		actionProvider = new Actions(driver);
 	}
 	
 	@Test
 	public void selectorTest() {
-		//target:driver.findElement(By.id("id"))
-		new Actions(driver).click(driver.findElement(By.id("id"))).perform();
-		//target:driver.findElement(By.className("class"))
-		new Actions(driver).click(driver.findElement(By.className("class"))).perform();
-		//target:driver.findElement(By.tagName("name"))
-		new Actions(driver).click(driver.findElement(By.tagName("name"))).perform();
-		//target:driver.findElement(By.cssSelector("#id > li"))
-		new Actions(driver).click(driver.findElement(By.cssSelector("#id > li"))).perform();
-		//target:driver.findElement(By.xpath("/html"))
-		new Actions(driver).click(driver.findElement(By.xpath("/html"))).perform();
-		//target:driver.findElement(By.name("name"))
-		new Actions(driver).click(driver.findElement(By.name("name"))).perform();
+		actionProvider.click(driver.findElement(By.id("id"))).perform();
+		actionProvider.click(driver.findElement(By.className("class"))).perform();
+		actionProvider.click(driver.findElement(By.tagName("name"))).perform();
+		actionProvider.click(driver.findElement(By.cssSelector("#id > li"))).perform();
+		actionProvider.click(driver.findElement(By.xpath("/html"))).perform();
+		actionProvider.click(driver.findElement(By.name("name"))).perform();
 	}
 	
 	@Test
@@ -51,14 +47,10 @@ public class TelluriumXPectGeneratorTestxt {
 		int vInt = 1;
 		List<WebElement> elements = driver.findElements(By.tagName("s"));
 		driver.get("Helloworld");
-		//target:driver.findElement(By.tagName("a"))
-		new Actions(driver).click(driver.findElement(By.tagName("a"))).perform();
-		//target:driver.findElements(By.tagName("s")).get(0)
-		new Actions(driver).click(driver.findElements(By.tagName("s")).get(0)).perform();
-		//target:elements.get(1)
-		new Actions(driver).click(elements.get(1)).perform();
-		//target:elements.get(vInt)
-		new Actions(driver).click(elements.get(vInt)).perform();
+		actionProvider.click(driver.findElement(By.tagName("a"))).perform();
+		actionProvider.click(driver.findElements(By.tagName("s")).get(0)).perform();
+		actionProvider.click(elements.get(1)).perform();
+		actionProvider.click(elements.get(vInt)).perform();
 		Assert.assertEquals(2.2,2.2);
 	}
 	

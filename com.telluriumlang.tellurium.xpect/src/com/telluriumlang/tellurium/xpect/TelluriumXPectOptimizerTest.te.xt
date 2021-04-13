@@ -19,7 +19,7 @@ public class TelluriumXPectOptimizerTestxt {
 	
 	
 	private static WebDriver driver;
-	
+	private static Actions actionProvider;
 	@Before
 	public void setup() {
 		if(driver == null){
@@ -27,6 +27,7 @@ public class TelluriumXPectOptimizerTestxt {
 		}
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		actionProvider = new Actions(driver);
 	}
 	
 	@Test
@@ -46,8 +47,7 @@ public class TelluriumXPectOptimizerTestxt {
 	public void elementOptimzeCase1() {
 		WebElement ele1 = driver.findElement(By.id("id"));
 		WebElement ele2 = ele1;
-		//target:ele2
-		new Actions(driver).click(ele2).perform();
+		actionProvider.click(ele2).perform();
 	}
 	
 	@Test

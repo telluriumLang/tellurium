@@ -175,7 +175,7 @@ ElementsListOperation:
 	ElementsSelectorExpr | ElementsSelectorRef
 ;
 
-// Directly use the $("...") expression to locate elements
+// Directly use the $["..."] expression to locate elements
 ElementsSelectorExpr:
 	elements=FindElements 
 ;

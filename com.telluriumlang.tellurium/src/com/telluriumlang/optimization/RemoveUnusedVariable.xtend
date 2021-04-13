@@ -15,9 +15,7 @@ class RemoveUnusedVariable extends OptimizationOperation{
 		var testcases = ats.testcases;
 		for(TestCase tc: testcases){
 			this.symbolRefCnt = new HashMap<String, Integer>();
-			tc.statements
-				.filter[t | !(t instanceof VariableDeclaration || t instanceof VariableAssignment)]
-				.forEach[collectInformation]
+			tc.statements.forEach[collectInformation]
 			for(var iter = tc.statements.iterator; iter.hasNext(); ){
 				var ts = iter.next;
 				 if(ts instanceof VariableDeclaration){

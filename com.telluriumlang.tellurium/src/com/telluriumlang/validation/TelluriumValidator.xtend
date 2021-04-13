@@ -109,7 +109,7 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 		var testCase = varDec.eContainer as TestCase
 		var nameCnt = testCase.statements.filter(VariableDeclaration).filter[v | v.name !== null && v.name == varDec.name].size
 		if(nameCnt > 1){
-			error("The name of variable \""+ varDec.name+"\" is not unique in this test set",
+			error("The name of variable \""+ varDec.name+"\" is not unique in this test case",
 				TelluriumPackage.Literals.VARIABLE_DECLARATION__NAME,
 				TelluriumErrorTypes.DUPLICATED_NAME)
 		}

@@ -12,6 +12,9 @@ class RemoveUnusedVariable extends OptimizationOperation{
 	var HashMap<String, Integer> symbolRefCnt = null;
 	
 	override doOptimize(AutomationTestSet ats) {
+		if(ats === null){
+			return ats;
+		}
 		var testcases = ats.testcases;
 		for(TestCase tc: testcases){
 			var performTask = true

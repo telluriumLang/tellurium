@@ -52,6 +52,9 @@ class ConstantPropagation extends OptimizationOperation {
 	}
 
 	override doOptimize(AutomationTestSet ats) {
+		if(ats === null){
+			return ats;
+		}
 		var testcases = ats.testcases;
 		for (TestCase tc : testcases) {
 			statusTable = new HashMap<String, VarContext>();

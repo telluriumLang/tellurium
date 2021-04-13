@@ -52,7 +52,7 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 			if(gis.action == GetInfoStatementAction.TITLE ){
 				if( target !== null ){
 					error("Get title from element is not supported.", 
-					TelluriumPackage.Literals.GET_INFO_STATEMENT__ACTION,
+					TelluriumPackage.Literals.GET_INFO_STATEMENT__TARGET,
 					TelluriumErrorTypes.GET_INFO_TARGET_INVALID)
 				}
 			}else{

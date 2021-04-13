@@ -46,6 +46,7 @@ import com.telluriumlang.tellurium.Offset
 import com.telluriumlang.tellurium.MouseDragNDrop
 import com.telluriumlang.tellurium.VariableAssignment
 import com.telluriumlang.optimization.PlatformIndependentOptimizer
+import java.util.Collections
 
 /**
  * Generates code from the Tellurium model on save.
@@ -77,8 +78,9 @@ class TelluriumGenerator extends AbstractGenerator {
 	def generateImportCode(AutomationTestSet ats, TelluriumGeneratorContext ctx){
 		var importCode = "";
 		if(ats.testConfig.filter[t | t instanceof DriverImplicityWait].size > 0){
-			importCode += "import java.util.concurrent.TimeUnit;" + BLANK_LINE;
+			ctx.importList.add("java.util.concurrent.TimeUnit")
 		}
+		Collections.sort(ctx.importList)
 		importCode += ctx.importList.map[ importPackage | 
 				'import ' + importPackage + ';'
 		].join('\n');
@@ -259,8 +261,9 @@ class TelluriumGenerator extends AbstractGenerator {
 			}else{
 				return 'boolean';
 			}
+		}else{
+			return ElementSelectorGenerator.inferElementType(vars)
 		}
-		return "Object"
 	}
 	
 	def dispatch String generateProgram(VariableAssignment exp, TelluriumGeneratorContext ctx)'''

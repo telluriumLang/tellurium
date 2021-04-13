@@ -1,0 +1,139 @@
+/* XPECT_SETUP com.telluriumlang.tellurium.xpect.TelluriumXPectOptimizerTest END_SETUP */
+
+/**
+XPECT generated file com/telluriumlang/tellurium/xpect/TelluriumXPectOptimizerTestxt.java ---
+package com.telluriumlang.tellurium.xpect;
+
+import java.util.concurrent.TimeUnit;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.*;
+
+public class TelluriumXPectOptimizerTestxt {
+	
+	
+	private static WebDriver driver;
+	
+	@Before
+	public void setup() {
+		if(driver == null){
+			driver = new ChromeDriver();
+		}
+		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	
+	@Test
+	public void varPropagationTest() {
+		Assert.assertEquals(2,2);
+		Assert.assertEquals(2.2,2.1);
+		Assert.assertNotNull("Hello Selenium");
+		Assert.assertEquals(2,2);
+	}
+	
+	@Test
+	public void complexConstOptimizeCase() {
+		Assert.assertEquals(1,1);
+	}
+	
+	@Test
+	public void elementOptimzeCase1() {
+		WebElement ele1 = driver.findElement(By.id("id"));
+		WebElement ele2 = ele1;
+		//target:ele2
+		new Actions(driver).click(ele2).perform();
+	}
+	
+	@Test
+	public void elementOptimzeCase2() {
+		WebElement ele1 = driver.findElement(By.id("id"));
+		ele1 = driver.findElement(By.id("id")) ;
+		Assert.assertNotNull(ele1.getAttribute("attr"));
+	}
+	
+	@Test
+	public void elementOptimzeCase3() {
+		WebElement ele1 = driver.findElement(By.id("id"));
+		String attr = ele1.getAttribute("attr");
+		ele1 = driver.findElement(By.id("id")) ;
+		Assert.assertNotNull(attr);
+		attr = ele1.getAttribute("attr") ;
+		Assert.assertNotNull(attr);
+	}
+	
+	@Test
+	public void elementOptimzeCase4() {
+		WebElement ele1 = driver.findElement(By.id("id"));
+		Assert.assertNotNull(ele1.getAttribute("attr2"));
+	}
+
+}
+---
+*/
+
+using Chrome driver;
+driver implicitly wait 10s;
+
+test varPropagationTest {
+	let vInt = 1
+	vInt = 2
+	assert vInt == 2
+	
+	let vDouble = 1.0
+	vDouble = 2
+	vDouble = 2.1
+	assert vDouble == 2.2
+	
+	let vString = "Hello World"
+	vString = "Hello Selenium"
+	assert vString not null
+	
+	let vInt2 = vInt
+	assert vInt2 == 2
+}
+
+test complexConstOptimizeCase{
+	let var1 = 1
+	let var2 = var1
+	let var3 = var2
+	var3 = var1
+	assert var3 == 1
+}
+
+test elementOptimzeCase1{
+	let ele1 = $("#id")
+	let ele2 = $("#id")
+	ele2 = ele1
+	mouse click on ele2
+}
+
+test elementOptimzeCase2{
+	let ele1 = $("#id")
+	let attr = get attribute "attr" from ele1
+	ele1 = $("#id")
+	attr = get attribute "attr" from ele1
+	assert attr not null
+}
+
+test elementOptimzeCase3{
+	let ele1 = $("#id")
+	let attr = get attribute "attr" from ele1
+	ele1 = $("#id")
+	assert attr not null
+	attr = get attribute "attr" from ele1
+	assert attr not null
+}
+
+test elementOptimzeCase4{
+	let ele1 = $("#id")
+	let attr = get attribute "attr" from ele1
+	attr = get attribute "attr2" from ele1
+	let attr2 = attr
+	assert attr2 not null
+}

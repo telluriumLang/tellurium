@@ -41,7 +41,8 @@ class ConstantPropagation extends OptimizationOperation {
 		Status status;
 		int refCnt = 0;
 		List<VariableAssignment> alreadyMerged = new ArrayList<VariableAssignment>();
-		override toString()'''(s:«status», cnt: «refCnt»)'''
+		boolean isLiteralType = false;
+		override toString()'''(s:«status», cnt: «refCnt», literaType: «isLiteralType» )'''
 	}
 
 	private enum Status {
@@ -100,6 +101,15 @@ class ConstantPropagation extends OptimizationOperation {
 		var varCtx = new VarContext();
 		varCtx.status = Status.DEF;
 		statusTable.put(varDec.name, varCtx)
+		var value = varDec.value
+		if(value instanceof DoubleLitera || value instanceof IntLitera || value instanceof StringLitera){
+			varCtx.isLiteralType = true
+		}else if( value instanceof VarExpression){
+			var valuesCtx = statusTable.get(value.^var.name)
+			if(valuesCtx !== null){
+				varCtx.isLiteralType = valuesCtx.isLiteralType
+			}
+		}
 		varDec.value.collectInfo
 	}
 	
@@ -107,14 +117,17 @@ class ConstantPropagation extends OptimizationOperation {
 		var value = varAss.value
 		if(value instanceof DoubleLitera || value instanceof IntLitera || value instanceof StringLitera){
 			var ctx = statusTable.get(varAss.ref.name)
-			if(ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1) ){
+			if(ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1)) ){
 				varAss.ref.value = EcoreUtil.copy(value)
 			}
 		}else if(value instanceof VarExpression){
 			var exp = value as VarExpression
-			if(statusTable.get(varAss.ref.name).status == Status.DEF 
-				&& statusTable.get(exp.^var.name).status == Status.DEF 
-			){
+			var ctx = statusTable.get(varAss.ref.name)
+			var refCtx = statusTable.get(exp.^var.name)
+			// If the status of assignment expression is DEF, and the target expression's status
+			// is DEF or it's status is used but it's literal type, update the value
+			if( ctx.status == Status.DEF &&
+				( refCtx.status == Status.DEF && (refCtx.status == Status.USED && refCtx.isLiteralType))){
 				varAss.ref.value = EcoreUtil.copy(exp.^var.value)
 			}
 		}
@@ -124,7 +137,7 @@ class ConstantPropagation extends OptimizationOperation {
 		if (op.target !== null && op.target instanceof VarExpression) {
 			var opTarget = op.target as VarExpression
 			var ctx = statusTable.get(opTarget.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				var strLitera = TelluriumFactory.eINSTANCE.createStringLitera
 				if(opTarget.^var.value instanceof StringLitera){
 					var oldStrLitera = opTarget.^var.value as StringLitera
@@ -139,7 +152,7 @@ class ConstantPropagation extends OptimizationOperation {
 		if (ki.target !== null && ki.target instanceof ElementReference) {
 			var kiTarget = ki.target as ElementReference
 			var ctx = statusTable.get(kiTarget.ref.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ki.target = kiTarget.updateElementReference
 			}
 		}
@@ -149,7 +162,7 @@ class ConstantPropagation extends OptimizationOperation {
 		if (mi.target !== null && mi.target instanceof ElementReference) {
 			var miTarget = mi.target as ElementReference
 			var ctx = statusTable.get(miTarget.ref.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				mi.target = miTarget.updateElementReference
 			}
 		}
@@ -159,7 +172,7 @@ class ConstantPropagation extends OptimizationOperation {
 		if (mm.target !== null && mm.target instanceof ElementReference) {
 			var mmTarget = mm.target as ElementReference
 			var ctx = statusTable.get(mmTarget.ref.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				mm.target = mmTarget.updateElementReference
 			}
 		}
@@ -169,14 +182,14 @@ class ConstantPropagation extends OptimizationOperation {
 		if (mdnd.source !== null && mdnd.source instanceof ElementReference) {
 			var mdndSource = mdnd.source as ElementReference
 			var ctx = statusTable.get(mdndSource.ref.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				mdnd.target = mdndSource.updateElementReference
 			}
 		}
 		if (mdnd.target !== null && mdnd.target instanceof ElementReference) {
 			var mdndTarget = mdnd.target as ElementReference
 			var ctx = statusTable.get(mdndTarget.ref.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				mdnd.target = mdndTarget.updateElementReference
 			}
 		}
@@ -186,7 +199,7 @@ class ConstantPropagation extends OptimizationOperation {
 		if (ass.actual !== null && ass.actual instanceof VarExpression) {
 			var assActual = ass.actual as VarExpression
 			var ctx = statusTable.get(assActual.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.actual = assActual.^var.updateVariables
 			}
 		}
@@ -196,7 +209,7 @@ class ConstantPropagation extends OptimizationOperation {
 		if (ass.actual !== null && ass.actual instanceof VarExpression) {
 			var assActual = ass.actual as VarExpression
 			var ctx = statusTable.get(assActual.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.actual = assActual.^var.updateVariables
 			}
 		}
@@ -206,7 +219,7 @@ class ConstantPropagation extends OptimizationOperation {
 		if (ass.actual !== null && ass.actual instanceof VarExpression) {
 			var assActual = ass.actual as VarExpression
 			var ctx = statusTable.get(assActual.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.actual = assActual.^var.updateVariables
 			}
 		}
@@ -216,7 +229,7 @@ class ConstantPropagation extends OptimizationOperation {
 		if (ass.actual !== null && ass.actual instanceof VarExpression) {
 			var assActual = ass.actual as VarExpression
 			var ctx = statusTable.get(assActual.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.actual = assActual.^var.updateVariables
 			}
 		}
@@ -226,14 +239,14 @@ class ConstantPropagation extends OptimizationOperation {
 		if (ass.actual !== null && ass.actual instanceof VarExpression) {
 			var assActual = ass.actual as VarExpression
 			var ctx = statusTable.get(assActual.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.actual = assActual.^var.updateVariables
 			}
 		}
 		if (ass.expected !== null && ass.expected instanceof VarExpression) {
 			var assExpected = ass.actual as VarExpression
 			var ctx = statusTable.get(assExpected.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.actual = assExpected.^var.updateVariables
 			}
 		}
@@ -243,14 +256,14 @@ class ConstantPropagation extends OptimizationOperation {
 		if (ass.actual !== null && ass.actual instanceof VarExpression) {
 			var assActual = ass.actual as VarExpression
 			var ctx = statusTable.get(assActual.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.actual = assActual.^var.updateVariables
 			}
 		}
 		if (ass.unexpected !== null && ass.unexpected instanceof VarExpression) {
 			var assUnexpected = ass.actual as VarExpression
 			var ctx = statusTable.get(assUnexpected.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.actual = assUnexpected.^var.updateVariables
 			}
 		}
@@ -260,14 +273,14 @@ class ConstantPropagation extends OptimizationOperation {
 		if (ass.needle !== null && ass.needle instanceof VarExpression) {
 			var assNeedle = ass.needle as VarExpression
 			var ctx = statusTable.get(assNeedle.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.needle = assNeedle.^var.updateVariables
 			}
 		}
 		if (ass.hayStack !== null && ass.hayStack instanceof VarExpression) {
 			var assHayStack = ass.needle as VarExpression
 			var ctx = statusTable.get(assHayStack.^var)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.needle = assHayStack.^var.updateVariables
 			}
 		}
@@ -277,20 +290,27 @@ class ConstantPropagation extends OptimizationOperation {
 		if (ass.needle !== null && ass.needle instanceof VarExpression) {
 			var assNeedle = ass.needle as VarExpression
 			var ctx = statusTable.get(assNeedle.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.needle = assNeedle.^var.updateVariables
 			}
 		}
 		if (ass.hayStack !== null && ass.hayStack instanceof VarExpression) {
 			var assHayStack = ass.needle as VarExpression
 			var ctx = statusTable.get(assHayStack.^var.name)
-			if (ctx.status == Status.DEF || (ctx.status == Status.USED && ctx.refCnt == 1)) {
+			if (ctx.status == Status.DEF || (ctx.status == Status.USED && (ctx.isLiteralType || ctx.refCnt == 1))) {
 				ass.needle = assHayStack.^var.updateVariables
 			}
 		}
 	}
 	
+	def dispatch void updateAST(EObject obj){
+		// DO Nothing Here
+	}
+	
 	def Variables updateVariables(VariableDeclaration varDec){
+		if(varDec.value instanceof VarExpression){
+			return (varDec.value as VarExpression).^var.updateVariables
+		}
 		return EcoreUtil.copy(varDec.value)
 	}
 	

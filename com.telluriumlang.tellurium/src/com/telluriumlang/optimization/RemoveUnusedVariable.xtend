@@ -14,19 +14,25 @@ class RemoveUnusedVariable extends OptimizationOperation{
 	override doOptimize(AutomationTestSet ats) {
 		var testcases = ats.testcases;
 		for(TestCase tc: testcases){
-			this.symbolRefCnt = new HashMap<String, Integer>();
-			tc.statements.forEach[collectInformation]
-			for(var iter = tc.statements.iterator; iter.hasNext(); ){
-				var ts = iter.next;
-				 if(ts instanceof VariableDeclaration){
-				 	if(!symbolRefCnt.containsKey(ts.name)){
-				 		iter.remove()
-				 	}
-				 }else if(ts instanceof VariableAssignment){
-				 	if(!symbolRefCnt.containsKey(ts.ref.name)){
-				 		iter.remove()
-				 	}
-				 }
+			var performTask = true
+			while(performTask){
+				performTask = false
+				this.symbolRefCnt = new HashMap<String, Integer>();
+				tc.statements.forEach[collectInformation]
+				for(var iter = tc.statements.iterator; iter.hasNext(); ){
+					var ts = iter.next;
+					 if(ts instanceof VariableDeclaration){
+					 	if(!symbolRefCnt.containsKey(ts.name)){
+					 		iter.remove()
+					 		performTask = true
+					 	}
+					 }else if(ts instanceof VariableAssignment){
+					 	if(!symbolRefCnt.containsKey(ts.ref.name)){
+					 		iter.remove()
+					 		performTask = true
+					 	}
+					 }
+				}
 			}
 		}
 		return ats

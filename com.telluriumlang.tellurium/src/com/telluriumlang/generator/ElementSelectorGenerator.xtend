@@ -6,20 +6,22 @@ import com.telluriumlang.tellurium.FindElements
 import com.telluriumlang.tellurium.ExtractElementFromList
 import com.telluriumlang.tellurium.ElementsSelectorExpr
 import com.telluriumlang.tellurium.ElementsSelectorRef
+import org.eclipse.emf.ecore.EObject
 
 class ElementSelectorGenerator {
+	
 	
 	def static String generateDeclaration(ElementExpressions exp, String varName, TelluriumGeneratorContext ctx){
 		if(!ctx.importList.contains("org.openqa.selenium.WebElement")) {
 	    	ctx.importList.add("org.openqa.selenium.WebElement");
 	    }
 		if(exp instanceof FindElement){
-			return '''WebElement «varName» = «exp.generateSelector(ctx)»'''
+			return '''«exp.inferElementType» «varName» = «exp.generateSelector(ctx)»'''
 		}else{
 			 if (!ctx.importList.contains("java.util.List")) {
 		        ctx.importList.add("java.util.List");
 		    }
-		    return '''List<WebElement> «varName» = «exp.generateSelector(ctx)»'''
+		    return '''«exp.inferElementType» «varName» = «exp.generateSelector(ctx)»'''
 		}
 	}
 	
@@ -27,7 +29,7 @@ class ElementSelectorGenerator {
 		if(!ctx.importList.contains("org.openqa.selenium.WebElement")) {
 	    	ctx.importList.add("org.openqa.selenium.WebElement");
 	    }
-		return '''WebElement «varName» = «efl.generateExtractor».get(«index»)'''
+		return '''«efl.inferElementType» «varName» = «efl.generateExtractor».get(«index»)'''
 	}
 	
 	def static String generateSelector(ElementExpressions exp, TelluriumGeneratorContext ctx){
@@ -38,6 +40,20 @@ class ElementSelectorGenerator {
 	}
 	
 	def static String generateExtractor(ExtractElementFromList efl)'''«efl.operation.doGenerate»'''
+	
+	def static String inferElementType(EObject obj){
+		if(obj instanceof ExtractElementFromList){
+			return "WebElement"
+		}else if(obj instanceof ElementExpressions){
+			if(obj instanceof FindElement){
+				return "WebElement"
+			}else{
+				return "List<WebElement>"
+			}
+		}else {
+			return "Object"
+		}
+	}
 	
 	def static dispatch String doGenerate(FindElement exp)'''driver.findElement(«exp.selector.inferSelector»)'''
 	

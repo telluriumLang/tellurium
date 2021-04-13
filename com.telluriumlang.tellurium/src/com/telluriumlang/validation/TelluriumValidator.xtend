@@ -75,15 +75,6 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 	}
 	
 	@Check
-	def checkStatementAfterQuit(TestCase tc){
-		if(tc.statements.fold(1,[state,stmt|stmt.computeQuitState(state)])==0){
-			error("No statement allowed after quit",
-				TelluriumPackage.Literals.TEST_CASE__STATEMENTS,
-				TelluriumErrorTypes.STATEMENT_AFTER_QUIT)
-		}
-	}
-	
-	@Check
 	def checkTestCaseName(TestCase tc){
 		if(ValidatorConstant.JAVA_RESERVE_KEYWORDS.contains(tc.name)){
 			error("The name of Test: \""+tc.name+"\" is a reserved keyword of Java",
@@ -129,6 +120,15 @@ class TelluriumValidator extends TelluriumSemanticsValidator {
 	 * 1=no quit statement encountered
 	 * 2=encountered quit statement
 	 */
+	 
+	@Check
+	def checkStatementAfterQuit(TestCase tc){
+		if(tc.statements.fold(1,[state,stmt|stmt.computeQuitState(state)])==0){
+			error("No statement allowed after quit",
+				TelluriumPackage.Literals.TEST_CASE__STATEMENTS,
+				TelluriumErrorTypes.STATEMENT_AFTER_QUIT)
+		}
+	}
 	
 	dispatch def int computeQuitState(TestStatement stmt, int quitState){
 		if(quitState == 2){

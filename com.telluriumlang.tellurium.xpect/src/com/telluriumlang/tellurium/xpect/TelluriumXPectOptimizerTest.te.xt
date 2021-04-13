@@ -77,8 +77,8 @@ public class TelluriumXPectOptimizerTestxt {
 ---
 */
 
-using Chrome driver;
-driver implicitly wait 10s;
+using Chrome driver
+driver implicitly wait 10s
 
 test varPropagationTest {
 	let vInt = 1

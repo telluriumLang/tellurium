@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Tellurium - A DSL for automation testing" modelDirectory="/com.telluriumlang.tellurium/src-gen"
     modelPluginID="com.telluriumlang.tellurium" forceOverwrite="true" modelName="Tellurium"
     updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.12">
+    complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.25">
   <genPackages prefix="Tellurium" basePackage="com.telluriumlang" disposableProviderFactory="true"
       fileExtensions="te" ecorePackage="Tellurium.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Tellurium.ecore#//DriverType">

@@ -14,11 +14,11 @@ TestConfigurationStatement:
 ;
 
 DriverConfig:
-	'using' type=DriverType 'driver' ';'
+	'using' type=DriverType 'driver'
 ;
 
 DriverImplicityWait:
-	'driver' 'implicitly' 'wait' waitsec=INT 's' ';'
+	'driver' 'implicitly' 'wait' waitsec=INT 's'
 ;
 
 enum DriverType:

@@ -136,7 +136,7 @@ class TelluriumGenerator extends AbstractGenerator {
 	'''
 	
 	def dispatch String generateProgram(SimpleKeyboardInput ski, TelluriumGeneratorContext ctx)'''
-	new Actions(driver).sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx).trim»,«ENDIF»"«ski.keySequence»").perform();
+	actionProvider.sendKeys(«IF ski.target!==null»«ski.target.generateProgram(ctx).trim»,«ENDIF»"«ski.keySequence»").perform();
 	'''
 	
 	def dispatch String generateProgram(ComplexKeyboardInput cki, TelluriumGeneratorContext ctx){
@@ -144,7 +144,7 @@ class TelluriumGenerator extends AbstractGenerator {
 			ctx.importList+="org.openqa.selenium.Keys"
 		}
 	'''
-	new Actions(driver).keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx).trim»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).perform();
+	actionProvider.keyDown(Keys.«cki.modifier.interpretModifier»).sendKeys(«IF cki.target!==null»«cki.target.generateProgram(ctx).trim»,«ENDIF»"«cki.keySequence»").keyUp(Keys.«cki.modifier.interpretModifier»).perform();
 	'''
 	}
 	
@@ -160,7 +160,7 @@ class TelluriumGenerator extends AbstractGenerator {
 	}
 	
 	def dispatch String generateProgram(SimpleMouseInput smi, TelluriumGeneratorContext ctx)'''
-	new Actions(driver).«smi.MAction.interpretMouseAction»(«IF smi.target!==null»«smi.target.generateProgram(ctx).trim»«ENDIF»).perform();
+	actionProvider.«smi.MAction.interpretMouseAction»(«IF smi.target!==null»«smi.target.generateProgram(ctx).trim»«ENDIF»).perform();
 	'''
 	
 	
@@ -187,7 +187,7 @@ class TelluriumGenerator extends AbstractGenerator {
 			return '''/*Mouse move without instruction*/'''
 		}
 		'''
-		new Actions(driver).move«moveMethod»(«IF hasTarget»«mm.target.generateProgram(ctx)»«ENDIF»«IF hasTarget&&hasOffset»,«ENDIF»«IF hasOffset»«mm.offset.generateProgram(ctx)»«ENDIF»).perform();
+		actionProvider.move«moveMethod»(«IF hasTarget»«mm.target.generateProgram(ctx)»«ENDIF»«IF hasTarget&&hasOffset»,«ENDIF»«IF hasOffset»«mm.offset.generateProgram(ctx)»«ENDIF»).perform();
 		'''
 	}
 	
@@ -199,7 +199,7 @@ class TelluriumGenerator extends AbstractGenerator {
 			moveMethod="By"
 		}
 		'''
-		new Actions(driver).dragAndDrop«moveMethod»(«mdnd.source.generateProgram(ctx)»,«IF hasTarget»«mdnd.target.generateProgram(ctx)»«ENDIF»«IF hasOffset»«mdnd.offset.generateProgram(ctx)»«ENDIF»).perform();
+		actionProvider.dragAndDrop«moveMethod»(«mdnd.source.generateProgram(ctx)»,«IF hasTarget»«mdnd.target.generateProgram(ctx)»«ENDIF»«IF hasOffset»«mdnd.offset.generateProgram(ctx)»«ENDIF»).perform();
 		'''
 	}
 	

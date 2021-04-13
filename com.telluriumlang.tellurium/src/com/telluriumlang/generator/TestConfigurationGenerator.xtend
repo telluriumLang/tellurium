@@ -15,6 +15,7 @@ class TestConfigurationGenerator {
 	def dispatch String generateProgram(AutomationTestSet dfg, TelluriumGeneratorContext ctx)'''
 	
 	private static WebDriver driver;
+	private static Actions actionProvider;
 	
 	@Before
 	public void setup() {
@@ -24,6 +25,7 @@ class TestConfigurationGenerator {
 			driver = new «this.getDriverName(DriverType.HTML_UNIT, ctx)»;
 		}
 		«ENDIF»
+		actionProvider = new Actions(driver);
 	}
 	'''
 	

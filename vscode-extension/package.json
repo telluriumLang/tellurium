@@ -6,6 +6,11 @@
 	"engines": {
 		"vscode": "^1.49.0"
 	},
+	"publisher": "Tellurium",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ousheobin/tellurium/tree/master/vscode-extension"
+	},
 	"categories": [
 		"Programming Languages"
 	],

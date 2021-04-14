@@ -1,0 +1,27 @@
+{
+    "Using Test Driver": {
+        "prefix": "using",
+        "body": [
+            "using ${1|Chrome,Edge,Firefox,HtmlUnit,IE,Safari|} driver",
+            "$2"
+        ],
+        "description": "Using a test driver"
+    },
+    "Create a test case":{
+        "prefix":"test",
+        "body":[
+            "test $1 {",
+            "    $2",
+            "}"
+        ],
+        "description": "Create a test case"
+    },
+    "Declare Variable": {
+        "prefix": "let",
+        "body": [
+            "let $1 = $2"
+        ],
+        "description": "Declare a variable"
+    }
+
+}

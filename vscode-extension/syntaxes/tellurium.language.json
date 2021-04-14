@@ -13,7 +13,7 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.tellurium",
-				"match": "\\b(Chrome|Edge|Firefox|HtmlUnit|IE|Safari|add|all|alt|and|assert|attribute|back|by|click|clickAndHold|close|cookie|ctrl|delete|doubleClick|drag|driver|drop|enter|false|forward|from|fullscreen|get|implicitly|in|into|is|isDisplay|isEnable|isSelected|let|maximize|message|meta|mouse|move|navigate|not|null|on|open|quit|refresh|release|rightClick|s|shift|tagName|test|title|to|true|using|value|wait|win|window|with)\\b"
+				"match": "\\b(add|all|alt|and|assert|attribute|back|by|click|clickAndHold|close|cookie|ctrl|delete|doubleClick|drag|driver|drop|enter|false|forward|from|fullscreen|get|implicitly|in|into|is|isDisplay|isEnable|isSelected|let|maximize|message|meta|mouse|move|navigate|not|null|on|open|quit|refresh|release|rightClick|s|shift|tagName|test|title|to|true|using|value|wait|win|window|with)\\b"
 			}]
 		},
 		"strings": {

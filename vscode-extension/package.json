@@ -33,6 +33,18 @@
 				"scopeName": "text.tellurium",
 				"path": "./syntaxes/tellurium.language.json"
 			}
+		],
+		"snippets": [
+			{
+				"language": "tellurium",
+				"path": "./syntaxes/tellurium.snippets.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "tellurium.init.project",
+				"title": "Create a new Tellurium test set"
+			}
 		]
 	},
 	"scripts": {

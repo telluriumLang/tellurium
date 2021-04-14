@@ -60,8 +60,11 @@ class TelluriumGenerator extends AbstractGenerator {
 		var filePath = ctx.packageName.replaceAll("\\.","/") 
 		filePath = filePath + "/" + ctx.className + ".java"
 		val model = resource.contents.head as AutomationTestSet;
-		val optimizedModel = PlatformIndependentOptimizer.doOptimize(model);
+		if(model === null){
+			return;
+		}
 		try{
+			val optimizedModel = PlatformIndependentOptimizer.doOptimize(model);
 			var packageName = "";
 			if(!ctx.packageName.empty){
 				packageName = "package " + ctx.packageName + ";";

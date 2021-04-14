@@ -1,6 +1,7 @@
 # Tellurium
 
 [![Maven Build](https://github.com/telluriumLang/tellurium/actions/workflows/maven.yml/badge.svg)](https://github.com/telluriumLang/tellurium/actions/workflows/maven.yml)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/telluriumLang/tellurium)
 
 Tellurium is a DSL for automation web UI testing.
 

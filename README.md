@@ -4,7 +4,7 @@
 
 Tellurium is a DSL for automation web UI testing.
 
-## Try out Tellurium 🚀
+## Quick start 🚀
 
 Currently provide two types of plugins for Tellurium:
 
@@ -25,6 +25,13 @@ You can find out a preview version VS Code Extension from our release page. You 
 > **Notice**
 > 
 > The VS Code extension is an PoC (proof of concept) of the language server protocol and may not supports some of the features in Eclipse plugin. We highly recommend you to try out the Eclipse plugin.
+> 
+
+## Runtime Information
+
+You need to install Java 1.8 before using Tellurium. 
+
+If you need to use the browser driver to launch test, please refer to the document in Selenium: [Link](https://www.selenium.dev/documentation/en/getting_started_with_webdriver/)
 
 ## Development Environment
 

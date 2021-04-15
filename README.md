@@ -5,6 +5,8 @@
 
 Tellurium is a DSL for automation web UI testing.
 
+[Documents](https://telluriumlang.github.io/tellurium/#/) | [Released packages](https://github.com/telluriumLang/tellurium/releases)
+
 ## Quick start 🚀
 
 Currently provides two types of plugins for Tellurium:

@@ -7,6 +7,9 @@
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#comments"
 		}
 	],
 	"repository": {
@@ -24,6 +27,15 @@
 				{
 					"name": "constant.character.escape.tellurium",
 					"match": "\\\\."
+				}
+			]
+		},
+		"comments": {
+			"name": "comment.line.double-slash.dreb",
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.tellurium",
+					"match": "\\/\\/.*\\n?"
 				}
 			]
 		}

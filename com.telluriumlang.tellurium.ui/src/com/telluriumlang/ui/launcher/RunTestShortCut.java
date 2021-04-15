@@ -59,7 +59,12 @@ public class RunTestShortCut extends JUnitLaunchShortcut {
 					continue;
 				}
 				if(i == oldSegs.length - 1) {
-					targetClass.append(oldSegs[i].replace(".te", "").replace(".", ""));
+					String fileName = oldSegs[i].replace(".te", "").replace(".", "");
+					String newFileName = fileName.substring(0, 1).toUpperCase();
+					if(fileName.length() > 1) {
+						newFileName += fileName.substring(1);
+					}
+					targetClass.append(newFileName);
 				}else {
 					targetClass.append(oldSegs[i]);
 					targetClass.append("/");

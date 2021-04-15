@@ -6,15 +6,30 @@ Currently provide two types of plugins for Tellurium:
 
 Tellurium has an update site for Eclipse.
 
-You can open your Eclipse and find out the `help` menu then select `Install new software...`. Once the dialog window poped up, input our updatesite's url:
+![Screenshots for Eclipse](./res/img/eclipse.screenshot.png)
+
+You can open your Eclipse and find out the `help` menu then select `Install new software...`. 
+
+![Screenshots for Eclipse Installation](./res/img/eclipse.install.1.png)
+
+Once the dialog window poped up, input our updatesite's url:
 
 [https://telluriumlang.github.io/updatesite/](https://telluriumlang.github.io/updatesite/)
 
+
 Select the Tellurium Plguin and install it. All dependencies will be automatically fetch from the repositories.
+
+![Screenshots for Eclipse Installation](./res/img/eclipse.install.2.png)
 
 ## Visual Studio Code Extension
 
-You can find out a preview version VS Code Extension from our release page. You can manually install the VSIX file into your VS Code environment.
+You can find out a preview version VS Code Extension from our release page. 
+
+![Screenshots for VSCode](./res/img/vscode.screenshot.png)
+
+You can manually download the extension from our [release page](https://github.com/telluriumLang/tellurium/releases/) and install the VSIX file into your VS Code environment.
+
+![Screenshots for VSCode Installation](./res/img/vscode.install.1.png)
 
 > **Notice**
 > 

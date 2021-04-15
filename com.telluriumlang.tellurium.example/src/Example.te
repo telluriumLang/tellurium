@@ -1,4 +1,8 @@
-using Firefox driver
+// Tellurium's example project
+// You may need to install the Chrome Driver before execute this test set.
+// Please refer to: https://www.selenium.dev/documentation/en/getting_started_with_webdriver/
+using Chrome driver
+ 
 driver implicitly wait 10s
 
 test KCL{
@@ -7,7 +11,6 @@ test KCL{
 	let faculty = $("//*[@id=\"form1\"]/header/section/div/div/nav/div[1]/ul[1]/li[4]/a")
 	mouse click on faculty
 	mouse click on $[".card-nav__heading"][5]
-	window maximize
 	let Title = get title from window
 	assert Title == "Faculties and departments"
 	let nms = $("#nms")
@@ -47,4 +50,5 @@ test sauce_shopping{
 	assert get attribute "innerHTML" from total == "Total: $32.39"
 	mouse click on $("#finish")
 	assert get attribute "innerHTML" from $[".title"][idx_zero] == "Checkout: Complete!"
+	quit
 }

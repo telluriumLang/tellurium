@@ -22,6 +22,89 @@
             "let $1 = $2"
         ],
         "description": "Declare a variable"
+    },
+    "Select Element": {
+        "prefix": "$(",
+        "body": [
+            "$(\"$1\")"
+        ],
+        "description": "Select an element"
+    },
+    "Select Elements": {
+        "prefix": "$[",
+        "body": [
+            "$[\"$1\"]"
+        ],
+        "description": "Select a set of element"
+    },
+    "Get information from":{
+        "prefix": "get",
+        "body":[
+            "get ${1|tagName,isEnable,isSelected,isDisplay,title|} from $2"
+        ],
+        "description": "Get information from"
+    },
+    "Get attribute from": {
+        "prefix": "get",
+        "body": [
+            "get attribute $1 from $2"
+        ],
+        "description": "Get attribute from"
+    },
+    "Driver implicitly wait time":{
+        "prefix": "driver",
+        "body":[
+            "driver implicitly wait $1 s"
+        ],
+        "description": "Set implicitly wait time of web driver"
+    },
+    "Quit Driver": {
+        "prefix": "q",
+        "body": [
+            "quit"
+        ],
+        "description": "Quit"
+    },
+    "Close page":{
+        "prefix": "c",
+        "body": [
+            "close"
+        ],
+        "description": "close the web page"
+    },
+    "Navigation": {
+        "prefix": "navigate",
+        "body": [
+            "navigate ${1|back,forward,refresh|}"
+        ],
+        "description": "Page navigation"
+    },
+    "Window Operation": {
+        "prefix": "window",
+        "body": [
+            "window ${1|maximize,fullscreen|}"
+        ],
+        "description": "Window's operation"
+    },
+    "Keyboard Input": {
+        "prefix": "enter",
+        "body": [
+            "enter $1 into $2"
+        ],
+        "description": "Input value"
+    },
+    "Mouse Click":{
+        "prefix": "mouse",
+        "body": [
+            "mouse ${1|click,doubleClick,clickAndHold,rightClick,release|} on $2"
+        ],
+        "description": "Mouse click"
+    },
+    "Assert":{
+        "prefix": "assert",
+        "body": [
+            "assert $1 ${2|is true,is false,is null,not null,==,!=,in,not in|} $3"
+        ],
+        "description": "Assert value"
     }
-
 }

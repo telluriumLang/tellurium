@@ -72,12 +72,12 @@ open <URL>
     
 ```Tellurium
 navigate {back|forward|refresh}
-```  
+```
 
 ## Window
     
 ```Tellurium
-window {maximize|fullscreen}}
+window {maximize|fullscreen}
 ```
 
 ## Quit and close
@@ -89,28 +89,28 @@ quit
 ## Keyboard input
     
 ```Tellurium
-enter [<MODIFIER> +] <STRING> [into <TARGET>] 
+enter [<MODIFIER> +] <STRING> [into <TARGET>]
 ```
 
 ## Mouse input
 
 ```Tellurium
-mouse {click|doubleClick|clickAndHold|rightClick|release} on <TARGET>}
-mouse move [to <TARGET>] [by <OFFSET>]}
-mouse drag and drop from <SOURCE> {to <TARGET>]|by <OFFSET>}
+mouse {click|doubleClick|clickAndHold|rightClick|release} on <TARGET>
+mouse move [to <TARGET>] [by <OFFSET>]
+mouse drag and drop from <SOURCE> {to <TARGET>|by <OFFSET>}
 ```
 
 ## Cookie add and delete
     
 ```Tellurium
-cookie add <KEY> with value <VALUE>}
+cookie add <KEY> with value <VALUE>
 ```
     
 ## Assertion
 
-```Tellurium   
-assert <ACTUAL> is {true|false} [with message <MESSAGE>]}
-assert <ACTUAL> {is|not} null [with message <MESSAGE>]}
-assert <ACTUAL> {==|!=} <EXPECTED> [with message <MESSAGE>]}
-assert <NEEDLE> [not] in <HAYSTACK> [with message <MESSAGE>]}
+```Tellurium
+assert <ACTUAL> is {true|false} [with message <MESSAGE>]
+assert <ACTUAL> {is|not} null [with message <MESSAGE>]
+assert <ACTUAL> {==|!=} <EXPECTED> [with message <MESSAGE>]
+assert <NEEDLE> [not] in <HAYSTACK> [with message <MESSAGE>]
 ```

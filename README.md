@@ -13,9 +13,9 @@ Currently provides two types of plugins for Tellurium:
 
 ### Eclipse Plugin
 
-Tellurium has an update site for Eclipse.
-
 ![Eclipse](docs/res/img/eclipse.screenshot.png)
+
+Tellurium has an update site for Eclipse.
 
 You can open your Eclipse and find out the `help` menu then select `Install new software...`. Once the dialog window poped up, input our updatesite's url:
 

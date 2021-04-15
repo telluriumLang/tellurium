@@ -1,0 +1,50 @@
+using Firefox driver
+driver implicitly wait 10s
+
+test KCL{
+	let KCL_URL = "https://www.kcl.ac.uk"
+	open KCL_URL
+	let faculty = $("//*[@id=\"form1\"]/header/section/div/div/nav/div[1]/ul[1]/li[4]/a")
+	mouse click on faculty
+	mouse click on $[".card-nav__heading"][5]
+	window maximize
+	let Title = get title from window
+	assert Title == "Faculties and departments"
+	let nms = $("#nms")
+	mouse move to nms
+	mouse click on nms
+	let newString = "foobar"
+	let welcome = get attribute "innerHTML" from$("/html/body/form/main/div[2]/div[1]/div[1]/div/div/div/div/article/a/h2")
+	assert welcome not null
+	newString = welcome
+	assert newString == "Welcome to the Faculty of Natural &amp; Mathematical Sciences"
+	quit
+}
+
+test sauce_shopping{
+	open "https://www.saucedemo.com/"
+	enter "standard_user" into $("#user-name")
+	let passwordForm = $("#password")
+	mouse click on passwordForm
+	enter "secret_sauce"
+	let idx = 0
+	let idx_zero = idx
+	idx = 1024
+	mouse click on $[".submit-button"][idx_zero]
+	assert get title from window == "Swag Labs"
+	let page_title = $[".title"][idx_zero]
+	assert get attribute "innerHTML" from $[".title"][idx_zero] not null
+	assert get attribute "innerHTML" from page_title == "Products"
+	mouse click on $("#add-to-cart-sauce-labs-backpack")
+	let shop_cart = $[".shopping_cart_container"]
+	mouse click on shop_cart[idx_zero]
+	mouse click on $("#checkout")
+	enter "Tellurium" into $("#first-name")
+	enter "TelluriumLang" into $("#last-name")
+	enter "WC2R 2LS" into $("#postal-code")
+	mouse click on $("#continue")
+	let total = $[".summary_total_label"][idx_zero]
+	assert get attribute "innerHTML" from total == "Total: $32.39"
+	mouse click on $("#finish")
+	assert get attribute "innerHTML" from $[".title"][idx_zero] == "Checkout: Complete!"
+}
